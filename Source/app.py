@@ -129,6 +129,10 @@ def index():
 
     return render_template("index.html", phones=phones)
 
+@app.route("/createPost")
+def createPost():
+    return "hallo"
+
 if __name__ == "__main__":
     Session(app)
     app.config['SESSION_TYPE'] = 'filesystem'
