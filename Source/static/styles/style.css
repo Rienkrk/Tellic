@@ -1,0 +1,11 @@
+.reset {
+  padding: 0px;
+  margin: 0px;
+}
+
+.flashes {
+  padding: 12px 0 12px 20px !important;
+  margin: 0px !important;
+  font-size: 14px;
+  list-style-type: none;
+}
