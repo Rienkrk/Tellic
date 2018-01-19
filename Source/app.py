@@ -1,7 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 import sqlite3
-from flask.ext.bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 # from fonAPI import FonApi
 
 import sys
