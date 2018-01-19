@@ -7,7 +7,7 @@
 {% block includes %}
 
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/portal.css') }}">
-    
+
 {% endblock %}
 
 {% block main %}
@@ -17,7 +17,7 @@
   <form class="form-signin">
     <h2 class="form-signin-heading">Welkom terug!</h2>
     <label for="inputEmail" class="sr-only">Gebruikersnaam</label>
-    <input type="email" id="inputEmail" class="form-control" name="username" placeholder="Gebruikersnaam" required autofocus>
+    <input type="text" id="inputUsername" class="form-control" name="username" placeholder="Gebruikersnaam" required autofocus>
     <label for="inputPassword" class="sr-only">Wachtwoord</label>
     <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Wachtwoord" required>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
