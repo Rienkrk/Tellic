@@ -104,7 +104,8 @@ def registerHandler():
 
     # Insert given data into database
     db = connection.cursor()
-    db.execute("INSERT INTO users (username, password) VALUES(?, ?)", (username, hashed))
+    sql = db.execute("INSERT INTO users (username, password) VALUES(?, ?)", (username, hashed))
+    session["user"] = sql['username']
     connection.commit()
 
     flash('U bent succesvol geregistreerd!', 'alert-success')
