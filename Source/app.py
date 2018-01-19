@@ -125,9 +125,9 @@ def index():
 
     fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
 
-    phones = fon.getdevice('oneplus 3t')
+    phonesVar = fon.getdevice('oneplus 3t')
 
-    return render_template("index.html", phones=phones)
+    return render_template("index.html", phones=phonesVar)
 
 @app.route("/createPost")
 def createPost():
