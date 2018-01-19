@@ -1,7 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 import sqlite3
-from flask.ext.bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 # from fonAPI import FonApi
 
 import sys
@@ -123,7 +123,7 @@ def index():
 
     fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
 
-    phones = fon.getdevice('oneplus 3t')
+    phones = fon.getdevice('Oneplus one')
 
     return render_template("index.html", phones=phones)
 
