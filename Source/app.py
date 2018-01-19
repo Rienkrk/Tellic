@@ -1,7 +1,7 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from flask_session import Session
 import sqlite3
-from flask_bcrypt import Bcrypt
+from flask.ext.bcrypt import Bcrypt
 # from fonAPI import FonApi
 
 import sys
@@ -105,6 +105,7 @@ def registerHandler():
     # Insert given data into database
     db = connection.cursor()
     sql = db.execute("INSERT INTO users (username, password) VALUES(?, ?)", (username, hashed))
+    sql = db.execute("SELECT FROM users (username) VALUES(?)", (username, hashed))
     session["user"] = sql['username']
     connection.commit()
 
@@ -124,7 +125,7 @@ def index():
 
     fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
 
-    phones = fon.getdevice('Oneplus one')
+    phones = fon.getdevice('oneplus 3t')
 
     return render_template("index.html", phones=phones)
 
