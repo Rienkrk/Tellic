@@ -128,13 +128,10 @@ def index():
     phonesVar = fon.getdevice('oneplus 3t')
 
     return render_template("index.html", phones=phonesVar)
-<<<<<<< HEAD
 
 @app.route("/createPost")
 def createPost():
     return "hallo"
-=======
->>>>>>> baa361cec9840ba99b3684c0d028ba40283bbb05
 
 if __name__ == "__main__":
     Session(app)
