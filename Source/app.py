@@ -105,8 +105,8 @@ def registerHandler():
     # Insert given data into database
     db = connection.cursor()
     sql = db.execute("INSERT INTO users (username, password) VALUES(?, ?)", (username, hashed))
-    sql = db.execute("SELECT FROM users (username) VALUES(?)", (username, hashed))
-    session["user"] = sql['username']
+    #sql = db.execute("SELECT FROM users (username) VALUES(?)", (username))
+    #session["user"] = sql['username']
     connection.commit()
 
     flash('U bent succesvol geregistreerd!', 'alert-success')
@@ -129,9 +129,22 @@ def index():
 
     return render_template("index.html", phones=phonesVar)
 
-@app.route("/createPost")
+@app.route("/createPost", methods=['GET', 'POST'])
 def createPost():
-    return "hallo"
+    if request.method == "POST":
+
+        # Get written post via POST.
+        title = request.form.get("title")
+        post = request.form.get("post")
+
+        # Add post to database.
+        db = connection.cursor()
+        db.execute("INSERT INTO posts (user_id, title, text) VALUES(?, ?, ?)", (1, title, post))
+        connection.commit()
+        flash('Uw post is geplaatst!', 'alert-success')
+
+    else:
+        return render_template("createPost.html")
 
 if __name__ == "__main__":
     Session(app)
