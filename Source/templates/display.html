@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Phone info
+{% endblock %}
+
+{% block includes %}
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/display.css') }}">
+
+{% endblock %}
+
+{% block main %}
+
+<p>Naam: {{ phones[0]['DeviceName'] }}</p>
+<p>Merk: {{ phones[0]['Brand'] }}</p>
+<p>Grootte: {{ phones[0]['size'] }}</p>
+<p>Afmetingen: {{ phones[0]['dimensions'] }}</p>
+<p>Gewicht: {{ phones[0]['weight'] }}</p>
+<p>Sim: {{ phones[0]['sim'] }}</p>
+<p>Resolutie: {{ phones[0]['resolution'] }}</p>
+<p>Wlan: {{ phones[0]['wlan'] }}</p>
+<p>Gps: {{ phones[0]['gps'] }}</p>
+<p>Radio: {{ phones[0]['radio'] }}</p>
+<p>Messaging: {{ phones[0]['messaging'] }}</p>
+<p>Browser: {{ phones[0]['browser'] }}</p>
+<p>Java: {{ phones[0]['java'] }}</p>
+<p>Speciale features: {{ phones[0]['features_c'] }} {{ phones[0]['features'] }}</p>
+<p>Verkrijgbare kleuren: {{ phones[0]['colors'] }}</p>
+<p>Interne geheugen: {{ phones[0]['internal'] }}</p>
+<p>Video: {{ phones[0]['video'] }}</p>
+<p>Snelheid: {{ phones[0]['speed'] }}</p>
+
+{% endblock %}

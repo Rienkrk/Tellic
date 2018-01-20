@@ -83,7 +83,7 @@ app.config['SECRET_KEY'] = 'jshd74hf8'
 # Makes a connection with the database.
 connection = sqlite3.connect("data.db", check_same_thread=False)
 
-# Put application into debug mode, to disbale caching.
+# Put application into debug mode, to disable caching.
 app.debug = True
 
 @app.route("/registerHandler", methods=['GET', 'POST'])
@@ -120,14 +120,19 @@ def register():
 def login():
     return render_template("login.html")
 
+@app.route("/display")
+def display():
+    if request.method == "GET":
+
+        fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+
+        phonesVar = fon.getdevice('samsung galaxy s7')
+
+        return render_template("display.html", phones=phonesVar)
+
 @app.route("/")
 def index():
-
-    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-
-    phonesVar = fon.getdevice('oneplus 3t')
-
-    return render_template("index.html", phones=phonesVar)
+    return render_template("index.html")
 
 @app.route("/createPost", methods=['GET', 'POST'])
 def createPost():
