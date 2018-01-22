@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Schrijf post
+{% endblock %}
+
+{% block includes %}
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/createPost.css') }}">
+
+{% endblock %}
+
+{% block main %}
+
+  <div class="form-group">
+    <form class="form-control" action="{{ url_for('createPost') }}" method="post">
+        <label for="exampleTextarea">Post</label>
+        <input class="form-control form-control-sm" type="text" name ="title" placeholder="Title" id="inputSmall">
+        <textarea class="form-control" id="exampleTextarea" name="post" rows="6" placeholder="Schrijf hier uw bericht"></textarea>
+        <button class="btn btn-primary" type="submit">Post!</button>
+    </form>
+  </div>
+
+
+{% endblock %}
