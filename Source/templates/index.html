@@ -12,17 +12,24 @@
 {% endblock %}
 
 {% block main %}
-
+<h3 class="h3"> Posts </h3>
 {% for post in posts %}
 
-<h5>{{ post[1] }}</h5>
-{{ post[2] }}<br>
-{{ post[3] }}<br>
-{{ post[4] }}<br>
+<div class="card border-primary mb-3">
+  <div class="card-header">posted by: {{ post[1]}}, {{post[4]}}</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">{{post[2]}}</h5>
+    <p class="card-text">{{post[3]}}</p>
+    <a href="{{ url_for('post') }}" class="card-link">Reply</a>
+  </div>
+</div>
+
 {% endfor %}
 
-
-
+<h3 class="h3"> Favorieten</h3>
+{% for favorite in favorites %}
+{{ favorite }}
+{% endfor %}
 
 
 {% endblock %}

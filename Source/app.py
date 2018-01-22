@@ -211,13 +211,21 @@ def display():
 @app.route("/")
 def index():
 
+    # Get all posts from database, most recent first.
+
     db = connection.cursor()
-    posts = db.execute("SELECT * FROM posts")
+    posts = db.execute("SELECT * FROM posts ORDER BY timestamp DESC")
     connection.commit()
     posts = posts.fetchall()
 
+    # Get favorites from user.
+    db = connection.cursor()
+    favorites = db.execute("SELECT * FROM favorites WHERE user_id = 233")
+    connection.commit()
+    favorites = favorites.fetchall()
 
-    return render_template("index.html", posts=posts)
+
+    return render_template("index.html", posts=posts, favorites=favorites)
 
 
 @app.route("/createPost", methods=['GET', 'POST'])
