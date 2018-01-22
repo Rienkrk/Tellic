@@ -171,6 +171,22 @@ def registerHandler():
 def register():
     return render_template("register.html")
 
+@app.route("/post", methods=['GET', 'POST'])
+def post():
+    if request.method == "GET":
+        db = connection.cursor()
+        existingPost = db.execute("SELECT title, text FROM posts WHERE id=1")
+        connection.commit()
+        existingPost = existingPost.fetchone()
+
+        return render_template("post.html", post=existingPost)
+    else:
+        reply = request.form.get("reply")
+        db = connection.cursor()
+        db.execute("INSERT INTO replies (user_id, post_id, phone_id, text) VALUES(?, ?, ?, ?)", (1, 1, 1, reply))
+        connection.commit()
+        flash('Uw antwoord is geplaatst!', 'alert-success')
+        return redirect(url_for("index"))
 @app.route("/login")
 def login():
     return render_template("login.html")
