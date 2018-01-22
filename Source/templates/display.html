@@ -6,29 +6,29 @@
 
 {% block includes %}
 
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/display.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/display2.css') }}">
 
 {% endblock %}
 
 {% block main %}
+<h1 class='h1'> Specificaties van de {{ phones[0]['DeviceName'] }}</h1>
 
-<p>Naam: {{ phones[0]['DeviceName'] }}</p>
-<p>Merk: {{ phones[0]['Brand'] }}</p>
-<p>Grootte: {{ phones[0]['size'] }}</p>
-<p>Afmetingen: {{ phones[0]['dimensions'] }}</p>
-<p>Gewicht: {{ phones[0]['weight'] }}</p>
-<p>Sim: {{ phones[0]['sim'] }}</p>
-<p>Resolutie: {{ phones[0]['resolution'] }}</p>
-<p>Wlan: {{ phones[0]['wlan'] }}</p>
-<p>Gps: {{ phones[0]['gps'] }}</p>
-<p>Radio: {{ phones[0]['radio'] }}</p>
-<p>Messaging: {{ phones[0]['messaging'] }}</p>
-<p>Browser: {{ phones[0]['browser'] }}</p>
-<p>Java: {{ phones[0]['java'] }}</p>
-<p>Speciale features: {{ phones[0]['features_c'] }} {{ phones[0]['features'] }}</p>
-<p>Verkrijgbare kleuren: {{ phones[0]['colors'] }}</p>
-<p>Interne geheugen: {{ phones[0]['internal'] }}</p>
-<p>Video: {{ phones[0]['video'] }}</p>
-<p>Snelheid: {{ phones[0]['speed'] }}</p>
-
+<p class ='p'>Naam: {{ phones[0]['DeviceName'] }}<br>
+Merk: {{ phones[0]['Brand'] }}<br>
+Grootte: {{ phones[0]['size'] }}<br>
+Afmetingen: {{ phones[0]['dimensions'] }}<br>
+Gewicht: {{ phones[0]['weight'] }}<br>
+Sim: {{ phones[0]['sim'] }}<br>
+Resolutie: {{ phones[0]['resolution'] }}<br>
+Wlan: {{ phones[0]['wlan'] }}<br>
+Gps: {{ phones[0]['gps'] }}<br>
+Radio: {{ phones[0]['radio'] }}<br>
+Messaging: {{ phones[0]['messaging'] }}<br>
+Browser: {{ phones[0]['browser'] }}<br>
+Java: {{ phones[0]['java'] }}<br>
+Speciale features: {{ phones[0]['features_c'] }} {{ phones[0]['features'] }}<br>
+Verkrijgbare kleuren: {{ phones[0]['colors'] }}<br>
+Interne geheugen: {{ phones[0]['internal'] }}<br>
+Video: {{ phones[0]['video'] }}<br>
+Snelheid: {{ phones[0]['speed'] }}</p>
 {% endblock %}
