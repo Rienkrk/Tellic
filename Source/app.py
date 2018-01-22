@@ -2,6 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 import sqlite3
 from flask_bcrypt import Bcrypt
+from tempfile import mkdtemp
 # from fonAPI import FonApi
 
 import sys
@@ -75,10 +76,15 @@ class FonApi:
 # Initialize the application.
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+app.config["SESSION_PERMANENT"] = True
+app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-app.config['SESSION_TYPE'] = 'filesystem'
-app.secret_key = 'jshd74hf8SDSD'
-app.config['SECRET_KEY'] = 'jshd74hf8'
+# Session(app)
+# app.config["SESSION_FILE_DIR"] = mkdtemp()
+# app.secret_key = 'jshd74hf8SDSD'
+# app.config['SECRET_KEY'] = 'jshd74hf8SDSD'
 
 # Makes a connection with the database.
 connection = sqlite3.connect("data.db", check_same_thread=False)
@@ -204,7 +210,14 @@ def display():
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+
+    db = connection.cursor()
+    posts = db.execute("SELECT * FROM posts WHERE user_id=1")
+    connection.commit()
+    posts = posts.fetchall()
+
+    return render_template("index.html", posts=posts)
+
 
 @app.route("/createPost", methods=['GET', 'POST'])
 def createPost():
@@ -227,4 +240,5 @@ if __name__ == "__main__":
     Session(app)
     app.config['SESSION_TYPE'] = 'filesystem'
     app.secret_key = 'jshd74hf8SDSD'
+    app.config['SECRET_KEY'] = 'jshd74hf8SDSD'
     app.run()
