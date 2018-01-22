@@ -196,9 +196,10 @@ def display():
 def index():
 
     db = connection.cursor()
-    posts = db.execute("SELECT * FROM posts WHERE user_id=1")
+    posts = db.execute("SELECT * FROM posts")
     connection.commit()
     posts = posts.fetchall()
+
 
     return render_template("index.html", posts=posts)
 
@@ -213,9 +214,10 @@ def createPost():
 
         # Add post to database.
         db = connection.cursor()
-        db.execute("INSERT INTO posts (user_id, title, text) VALUES(?, ?, ?)", (1, title, post))
+        db.execute("INSERT INTO posts (username, title, text) VALUES(?, ?, ?)", (session.get('user')['username'], title, post))
         connection.commit()
         flash('Uw post is geplaatst!', 'alert-success')
+        return redirect(url_for("index"))
 
     else:
         return render_template("createPost.html")

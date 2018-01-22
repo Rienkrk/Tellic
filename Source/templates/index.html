@@ -14,9 +14,11 @@
 {% block main %}
 
 {% for post in posts %}
-<p>
-{{ post[3] }}
-</p>
+
+<h5>{{ post[1] }}</h5>
+{{ post[2] }}<br>
+{{ post[3] }}<br>
+{{ post[4] }}<br>
 {% endfor %}
 
 
