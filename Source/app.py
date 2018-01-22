@@ -101,7 +101,7 @@ def loginHandler():
         flash('Oops! Vul alstublieft uw gebruikersnaam en wachtwoord in!', 'alert-danger')
         return render_template('register.html')
 
-	# Recieve
+	# Receive
     db = connection.cursor()
     user = db.execute("SELECT * FROM users WHERE username=?", (username, ))
     connection.commit()
@@ -179,10 +179,11 @@ def login():
 def display():
     if request.method == "GET":
 
+        # Uses the token to get into the API.
         fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
 
+        # Get all the information about a specific phone and return the html file.
         phonesVar = fon.getdevice('samsung galaxy s7')
-
         return render_template("display.html", phones=phonesVar)
 
 @app.route("/")
