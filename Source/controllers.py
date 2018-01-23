@@ -1,6 +1,7 @@
 from app import *
 from models import *
 from api import *
+from sqlalchemy import desc
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -96,12 +97,15 @@ def createPost():
 
 @app.route("/")
 def index():
-    posts = Post.query.all()
+
+    # get posts from database, most recent first
+    posts = Post.query.order_by(desc(Post.created_on)).all()
     return render_template("index.html", posts=posts)
 
 @app.route("/profiel")
 @login_required
 def profiel():
+
     posts = Post.query.filter_by(user_id=current_user.id).all()
     return render_template("profiel.html", posts=posts)
 
@@ -113,3 +117,5 @@ def display():
     # Get all the information about a specific phone and return the html file.
     phone = fon.getdevice('samsung galaxy s7')
     return render_template("display.html", phone=phone)
+
+@app.route("/post/<post>")
