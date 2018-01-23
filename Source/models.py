@@ -8,6 +8,7 @@ class User(db.Model):
 
     posts = db.relationship('Post', backref='user', lazy=True)
     replies = db.relationship('Reply', backref='userR', lazy=True)
+    favorites = db.relationship('Favorite', backref='userR', lazy=True)
 
     def __init__(self, username, password):
         self.username = username
@@ -62,7 +63,7 @@ class Reply(db.Model):
     def __repr__(self):
         return '<Title %r>' % self.title
 
-class Favorites(db.Model):
+class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     phone = db.Column(db.String(80), nullable=False)
