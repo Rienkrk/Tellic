@@ -31,6 +31,7 @@ if __name__ == "__main__":
 # 3. Begrijp hier alles van: http://flask-sqlalchemy.pocoo.org/2.3/
 # 4. Opmerkingen bij alles zetten
 
+<<<<<<< HEAD
 # Sorry Stijn; maar dit moest er even uit (punt 1)
 # @app.route("/post", methods=['GET', 'POST'])
 # def post():
@@ -49,3 +50,5 @@ if __name__ == "__main__":
 #         flash('Uw antwoord is geplaatst!', 'alert-success')
 #         return redirect(url_for("index"))
 # <!--<a href="{{ url_for('post/post['id']) }}" class="card-link">Reply</a>-->
+=======
+>>>>>>> 2e50d88fc64188366de744bb31352fd6c887cee9
