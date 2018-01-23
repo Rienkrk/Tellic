@@ -105,11 +105,10 @@ def profiel():
     posts = Post.query.filter_by(user_id=current_user.id).all()
     return render_template("profiel.html", posts=posts)
 
-@app.route("/display")
-def display():
+@app.route("/display/<phone>")
+def display(phone):
     # Uses the token to get into the API.
     fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-
     # Get all the information about a specific phone and return the html file.
-    phone = fon.getdevice('samsung galaxy s7')
+    phone = fon.getdevice(phone)
     return render_template("display.html", phone=phone)
