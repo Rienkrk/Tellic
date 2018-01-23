@@ -1,6 +1,7 @@
 from app import *
 from models import *
 from api import *
+<<<<<<< HEAD
 import json
 
 # Usually the searchs occurs in databases, for this simple example we're using search in this array
@@ -40,6 +41,9 @@ def search():
 	result = [c for c in BRAZIL_STATES if unicode(text).lower() in c.lower()]
 	# return as JSON
 	return json.dumps({"results":result})
+=======
+from sqlalchemy import desc
+>>>>>>> 5404902eb369d7ecd631a2055f69250bcc2e377b
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -135,12 +139,15 @@ def createPost():
 
 @app.route("/")
 def index():
-    posts = Post.query.all()
+
+    # get posts from database, most recent first
+    posts = Post.query.order_by(desc(Post.created_on)).all()
     return render_template("index.html", posts=posts)
 
 @app.route("/profiel")
 @login_required
 def profiel():
+
     posts = Post.query.filter_by(user_id=current_user.id).all()
     return render_template("profiel.html", posts=posts)
 
@@ -151,3 +158,25 @@ def display(phone):
     # Get all the information about a specific phone and return the html file.
     phone = fon.getdevice(phone)
     return render_template("display.html", phone=phone)
+
+@app.route("/reply", methods=['GET', 'POST'])
+def reply():
+    # Get written reply via POST.
+    reply = request.form.get("reply")
+    post_id = request.form.get("post_id")
+
+    # Add post to database.
+    newReply = Reply(current_user.id, post_id, reply, "tjest")
+    db.session.add(newReply)
+    db.session.commit()
+
+    flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
+    return redirect("post/" + post_id)
+
+@app.route("/post/<post_id>")
+def post(post_id):
+    if request.method == "GET":
+        post = Post.query.filter_by(id=post_id).first()
+        replies = Reply.query.filter_by(post_id=post_id).all()
+        return render_template("post.html", post=post, replies=replies)
+

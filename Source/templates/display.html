@@ -6,7 +6,7 @@
 
 {% block includes %}
 
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/display2.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/display.css') }}">
 
 {% endblock %}
 
@@ -24,39 +24,69 @@
     <td>{{ phone[0]['Brand'] }}</td>
   </tr>
   <tr class="table-active">
-    <td>Grootte</td>
+    <td>Grootte:</td>
     <td>{{ phone[0]['size'] }}</td>
   </tr>
   <tr>
-    <td>Ernst Handel</td>
+    <td>Afmetingen:</td>
+    <td>{{ phone[0]['dimensions'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Gewicht:</td>
+    <td>{{ phone[0]['weight'] }}</td>
   </tr>
   <tr>
-    <td>Island Trading</td>
+    <td>Sim:</td>
+    <td>{{ phone[0]['sim'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Resolutie:</td>
+    <td>{{ phone[0]['resolution'] }}</td>
   </tr>
   <tr>
-    <td>Laughing Bacchus Winecellars</td>
+    <td>Wlan:</td>
+    <td>{{ phone[0]['wlan'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Gps:</td>
+    <td>{{ phone[0]['gps'] }}</td>
   </tr>
   <tr>
-    <td>Magazzini Alimentari Riuniti</td>
+    <td>Radio:</td>
+    <td>{{ phone[0]['radio'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Messaging:</td>
+    <td>{{ phone[0]['messaging'] }}</td>
+  </tr>
+  <tr>
+    <td>Browser:</td>
+    <td>{{ phone[0]['browser'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Java:</td>
+    <td>{{ phone[0]['java'] }}</td>
+  </tr>
+  <tr>
+    <td>Speciale features:</td>
+    <td>{{ phone[0]['features_c'] }} {{ phone[0]['features'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Verkrijgbare kleuren:</td>
+    <td>{{ phone[0]['colors'] }}</td>
+  </tr>
+  <tr>
+    <td>Interne geheugen:</td>
+    <td>{{ phone[0]['internal'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Video:</td>
+    <td>{{ phone[0]['video'] }}</td>
+  </tr>
+  <tr>
+    <td>Snelheid:</td>
+    <td>{{ phone[0]['speed'] }}</td>
   </tr>
 </table>
 
-<p class ='p'>Naam: {{ phone[0]['DeviceName'] }}<br>
-Merk: {{ phone[0]['Brand'] }}<br>
-Grootte: {{ phone[0]['size'] }}<br>
-Afmetingen: {{ phone[0]['dimensions'] }}<br>
-Gewicht: {{ phone[0]['weight'] }}<br>
-Sim: {{ phone[0]['sim'] }}<br>
-Resolutie: {{ phone[0]['resolution'] }}<br>
-Wlan: {{ phone[0]['wlan'] }}<br>
-Gps: {{ phone[0]['gps'] }}<br>
-Radio: {{ phone[0]['radio'] }}<br>
-Messaging: {{ phone[0]['messaging'] }}<br>
-Browser: {{ phone[0]['browser'] }}<br>
-Java: {{ phone[0]['java'] }}<br>
-Speciale features: {{ phone[0]['features_c'] }} {{ phone[0]['features'] }}<br>
-Verkrijgbare kleuren: {{ phone[0]['colors'] }}<br>
-Interne geheugen: {{ phone[0]['internal'] }}<br>
-Video: {{ phone[0]['video'] }}<br>
-Snelheid: {{ phone[0]['speed'] }}</p>
 {% endblock %}

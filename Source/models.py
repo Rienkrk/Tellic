@@ -7,8 +7,8 @@ class User(db.Model):
     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
     posts = db.relationship('Post', backref='user', lazy=True)
-    replies = db.relationship('Reply', backref='userR', lazy=True)
-    favorites = db.relationship('Favorite', backref='userR', lazy=True)
+    replies = db.relationship('Reply', backref='user', lazy=True)
+    favorites = db.relationship('Favorite', backref='user', lazy=True)
 
     def __init__(self, username, password):
         self.username = username
@@ -36,7 +36,8 @@ class Post(db.Model):
     text = db.Column(db.String(255), nullable=False)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
-    replies = db.relationship('Reply', backref='user', lazy=True)
+    # dit even weggelaten anders werk reply.user['username'] in post.html niet
+    #replies = db.relationship('Reply', backref='user', lazy=True)
 
     def __init__(self, user_id, title, text):
         self.user_id = user_id
