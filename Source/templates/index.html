@@ -1,11 +1,31 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Index
+    Home
+{% endblock %}
+
+{% block includes %}
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/index.css') }}">
+
+
 {% endblock %}
 
 {% block main %}
 
-  {{ phones }}
+<h3 class="h3"> Posts </h3>
+
+{% for post in posts %}
+
+<div class="card border-primary mb-3">
+  <div class="card-header">posted by: {{ post['title'] }}, {{ post.user['username'] }}</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">{{post['title']}}</h5>
+    <p class="card-text">{{post['text']}}</p>
+    <a href="{{ url_for('index') }}" class="card-link">Reply</a>
+  </div>
+</div>
+
+{% endfor %}
 
 {% endblock %}
