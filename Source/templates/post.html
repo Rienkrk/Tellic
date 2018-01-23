@@ -6,23 +6,13 @@
 
 {% block includes %}
 
--
 
 {% endblock %}
 
 {% block main %}
     <div>
-        <form class="temp" action="{{ url_for('post') }}" method="post">
-            <label for="exampleTextArea">Post</label>
-            <p> Titel: {{ post[0] }}</p>
-            <p> Text: {{ post[1] }}</p>
 
-        </form>
+            {{ post['text'] }}
 
-        <form class="form-control" action="{{ url_for('post') }}" method="post">
-            <label for="exampleTextarea">Reply</label>
-            <textarea class="form-control" id="exampleTextarea" name="reply" rows="6" placeholder="Schrijf hier uw antwoord!"></textarea>
-            <button class="btn btn-primary" type="submit">Reply!</button>
-        </form>
     </div>
 {% endblock %}

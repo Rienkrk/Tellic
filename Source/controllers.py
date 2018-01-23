@@ -117,4 +117,9 @@ def display(phone):
     phone = fon.getdevice(phone)
     return render_template("display.html", phone=phone)
 
-@app.route("/post/<post>")
+@app.route("/post/<m>")
+def post(m):
+
+    post = Post.query.filter_by(id=m).first()
+    return render_template("post.html", post=post)
+

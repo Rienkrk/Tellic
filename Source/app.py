@@ -48,3 +48,4 @@ if __name__ == "__main__":
 #         connection.commit()
 #         flash('Uw antwoord is geplaatst!', 'alert-success')
 #         return redirect(url_for("index"))
+# <!--<a href="{{ url_for('post/post['id']) }}" class="card-link">Reply</a>-->

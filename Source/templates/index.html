@@ -22,7 +22,7 @@
   <div class="card-body text-primary">
     <h5 class="card-title">{{post['title']}}</h5>
     <p class="card-text">{{post['text']}}</p>
-    <a href="{{ url_for('post', =post['id']) }}" class="card-link">Reply</a>
+    <a href= "{{ url_for('post', m=post['id']) }}" class="card-link">Reply</a>
   </div>
 </div>
 
