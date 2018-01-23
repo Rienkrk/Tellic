@@ -14,6 +14,33 @@
 
 <h1 class='h1'> Specificaties van de {{ phone[0]['DeviceName'] }}</h1>
 
+<table class="table">
+  <tr class="table-dark">
+    <th>Telefoon naam:</th>
+    <th>{{ phone[0]['DeviceName'] }}</th>
+  </tr>
+  <tr >
+    <td>Merk:</td>
+    <td>{{ phone[0]['Brand'] }}</td>
+  </tr>
+  <tr class="table-active">
+    <td>Grootte</td>
+    <td>{{ phone[0]['size'] }}</td>
+  </tr>
+  <tr>
+    <td>Ernst Handel</td>
+  </tr>
+  <tr>
+    <td>Island Trading</td>
+  </tr>
+  <tr>
+    <td>Laughing Bacchus Winecellars</td>
+  </tr>
+  <tr>
+    <td>Magazzini Alimentari Riuniti</td>
+  </tr>
+</table>
+
 <p class ='p'>Naam: {{ phone[0]['DeviceName'] }}<br>
 Merk: {{ phone[0]['Brand'] }}<br>
 Grootte: {{ phone[0]['size'] }}<br>
