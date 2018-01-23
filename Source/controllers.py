@@ -117,9 +117,24 @@ def display(phone):
     phone = fon.getdevice(phone)
     return render_template("display.html", phone=phone)
 
-@app.route("/post/<m>")
-def post(m):
+@app.route("/reply", methods=['GET', 'POST'])
+def reply():
+    # Get written reply via POST.
+    reply = request.form.get("reply")
+    post_id = request.form.get("post_id")
 
-    post = Post.query.filter_by(id=m).first()
-    return render_template("post.html", post=post)
+    # Add post to database.
+    newReply = Reply(current_user.id, post_id, reply, "tjest")
+    db.session.add(newReply)
+    db.session.commit()
+
+    flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
+    return redirect("post/" + post_id)
+
+@app.route("/post/<post_id>")
+def post(post_id):
+    if request.method == "GET":
+        post = Post.query.filter_by(id=post_id).first()
+        replies = Reply.query.filter_by(post_id=post_id).all()
+        return render_template("post.html", post=post, replies=replies)
 

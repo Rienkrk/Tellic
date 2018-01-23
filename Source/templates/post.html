@@ -6,21 +6,36 @@
 
 {% block includes %}
 
--
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/post.css') }}">
 
 {% endblock %}
 
 {% block main %}
+    <h3 class="h3"> Post </h3>
+
+
+    <div class="card border-primary mb-3">
+      <div class="card-header">posted by: {{ post.user['username'] }}, {{ post['created_on'] }}</div>
+      <div class="card-body text-primary">
+        <h5 class="card-title">{{post['title']}}</h5>
+        <p class="card-text">{{post['text']}}</p>
+      </div>
+    </div>
+
+        {% for reply in replies %}
+        <div class="card border-light mb-3" style="max-width: 40rem;">
+            <div class="card-header">reply posted by: {{ reply.user['username'] }}, {{ reply['created_on'] }}</div>
+            <div class="card-body text-primary">
+            <p class="card-text"> {{ reply['text'] }} </p>
+            </div>
+        </div>
+        {% endfor %}
+
+
     <div>
-        <form class="temp" action="{{ url_for('post') }}" method="post">
-            <label for="exampleTextArea">Post</label>
-            <p> Titel: {{ post[0] }}</p>
-            <p> Text: {{ post[1] }}</p>
-
-        </form>
-
-        <form class="form-control" action="{{ url_for('post') }}" method="post">
+        <form class="form-control" action="{{ url_for('reply') }}" method="post">
             <label for="exampleTextarea">Reply</label>
+            <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
             <textarea class="form-control" id="exampleTextarea" name="reply" rows="6" placeholder="Schrijf hier uw antwoord!"></textarea>
             <button class="btn btn-primary" type="submit">Reply!</button>
         </form>
