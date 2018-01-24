@@ -21,9 +21,9 @@
         <p class="card-text">{{post['text']}}</p>
       </div>
     </div>
-
+        <h4 class="h4">Replies</h4>
         {% for reply in replies %}
-        <div class="card border-light mb-3" style="max-width: 40rem;">
+        <div class="card border-primary mb-3" style="max-width: 40rem;">
             <div class="card-header">reply posted by: {{ reply.user['username'] }}, {{ reply['created_on'] }}</div>
             <div class="card-body text-primary">
             <p class="card-text"> {{ reply['text'] }} </p>

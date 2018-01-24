@@ -3,6 +3,7 @@ from models import *
 from api import *
 import json
 from sqlalchemy import desc
+from collections import Counter
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
@@ -108,16 +109,22 @@ def index():
 
     # get posts from database, most recent first
     posts = Post.query.order_by(desc(Post.created_on)).all()
-    return render_template("index.html", posts=posts)
+
+    # get the 3 most popular phones
+    phones = Favorite.query.all()
+    popular = Counter([phone.phone for phone in phones]).most_common(3)
+
+
+    return render_template("index.html", posts=posts, popular=popular)
 
 @app.route("/profiel")
 @login_required
 def profiel():
 
-	# replies = Reply.query.filter_by(user_id=current_user.id).all()
+    replies = Reply.query.filter_by(user_id=current_user.id).all()
     posts = Post.query.filter_by(user_id=current_user.id).all()
 
-    return render_template("profiel.html", posts=posts)
+    return render_template("profiel.html", posts=posts, replies=replies)
 
 @app.route("/display/<phone>")
 def display(phone):
