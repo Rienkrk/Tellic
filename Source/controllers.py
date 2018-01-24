@@ -1,7 +1,15 @@
 from app import *
 from models import *
 from api import *
+import json
 from sqlalchemy import desc
+
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+	var = request.args['searchText']
+	phones = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5').getdevice(var)
+
+	return json.dumps({'phones':phones});
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -106,7 +114,9 @@ def index():
 @login_required
 def profiel():
 
+	# replies = Reply.query.filter_by(user_id=current_user.id).all()
     posts = Post.query.filter_by(user_id=current_user.id).all()
+
     return render_template("profiel.html", posts=posts)
 
 @app.route("/display/<phone>")
@@ -137,4 +147,3 @@ def post(post_id):
         post = Post.query.filter_by(id=post_id).first()
         replies = Reply.query.filter_by(post_id=post_id).all()
         return render_template("post.html", post=post, replies=replies)
-
