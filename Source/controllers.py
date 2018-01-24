@@ -130,7 +130,7 @@ def profiel():
 def display(phone):
     # Uses the token to get into the API.
     fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-    # Get all the information about a specific phone and return the html file.
+    # Get all the information about a specific phone and return to the html file.
     phone = fon.getdevice(phone)
     return render_template("display.html", phone=phone)
 
@@ -154,3 +154,18 @@ def post(post_id):
         post = Post.query.filter_by(id=post_id).first()
         replies = Reply.query.filter_by(post_id=post_id).all()
         return render_template("post.html", post=post, replies=replies)
+
+@app.route("/favorite", methods=['GET', 'POST'])
+def favorite():
+
+    favorite = request.form.get('phone')
+
+    addFavorite = Favorite(current_user.id, favorite)
+
+    db.session.add(favorite)
+    db.session.commit()
+
+    flash('Deze telefoon is toegevoegd aan uw favorieten!', 'alert-success')
+    return redirect("display/" + favorite)
+
+
