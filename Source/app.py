@@ -23,9 +23,3 @@ from controllers import *
 # Run app
 if __name__ == "__main__":
     app.run()
-
-# Onthouden
-# 1. Wel werken met verschillende routes display/samsung-galaxy etc
-# 2. Forms checking, lengte/soort/wel of geen input etc! Met specifiek framework (wtf forms) of zelf
-# 3. Begrijp hier alles van: http://flask-sqlalchemy.pocoo.org/2.3/
-# 4. Opmerkingen bij alles zetten
