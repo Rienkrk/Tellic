@@ -15,11 +15,14 @@
         <a class="nav-link" href="{{ url_for('createPost') }}">Maak een post</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0 nav-item">
+    <form class="search-form form-inline my-2 my-lg-0 nav-item">
       <input class="form-control mr-sm-2" type="text" name="fname" id="fname" onkeyup="myFunction(this.value)" placeholder="Search">
       <button class="btn btn-secondary my-2 my-sm-0" type="submit">Zoeken</button>
     </form>
-
+    <div class="search-drop">
+      <ul class="list-group">
+      </ul>
+    </div>
     {% if current_user.is_authenticated %}
 
       <ul class="nav navbar-nav navbar-right">

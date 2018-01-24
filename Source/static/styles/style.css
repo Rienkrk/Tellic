@@ -9,3 +9,21 @@
   font-size: 14px;
   list-style-type: none;
 }
+
+.search-form {
+  position: relative;
+}
+
+.navbar {
+  position: relative !important;
+  background: orange !important;
+}
+
+.search-drop {
+  height: auto;
+  width: 400px;
+  background: blue;
+  position: absolute;
+  right: 240px;
+  margin-top: 160px;
+}
