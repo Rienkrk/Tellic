@@ -7,12 +7,17 @@ function myFunction(value) {
 			dataType: "json",
       success: function(response) {
           console.log(response.phones);
-
+					$( ".search-drop" ).empty();
 					for(x in response.phones){
-						console.log(response.phones[x]["DeviceName"])
+						console.log(response.phones[x])
 						var phone = response.phones[x]['DeviceName']
-						var html = "<li class='list-group-item d-flex justify-content-between align-items-center'>" + phone + "<span class='badge badge-primary badge-pill'>14</span></li>"
-						$(".search-drop").prepend(html);
+						var brand = response.phones[x]['Brand']
+
+						if (phone !== undefined) {
+							var html = "<a href=\"/display/"+phone+"\"><li class='list-group-item d-flex justify-content-between align-items-center'>" + phone + "<span class='badge badge-primary badge-pill'>" + brand + "</span></li></a>"
+							$(".search-drop").prepend(html);
+						};
+
 					};
 
       },
