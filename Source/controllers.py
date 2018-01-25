@@ -123,8 +123,9 @@ def profiel():
 
     replies = Reply.query.filter_by(user_id=current_user.id).all()
     posts = Post.query.filter_by(user_id=current_user.id).all()
+    favorites = Favorite.query.filter_by(user_id=current_user.id).all()
 
-    return render_template("profiel.html", posts=posts, replies=replies)
+    return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
 
 @app.route("/display/<phone>")
 def display(phone):
