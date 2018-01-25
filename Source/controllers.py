@@ -107,10 +107,10 @@ def createPost():
 @app.route("/")
 def index():
 
-    # get posts from database, most recent first
+    # Get posts from database, most recent first.
     posts = Post.query.order_by(desc(Post.created_on)).all()
 
-    # get the 3 most popular phones
+    # Get the 3 most popular phones.
     phones = Favorite.query.all()
     popular = Counter([phone.phone for phone in phones]).most_common(3)
 
@@ -151,6 +151,11 @@ def reply():
 @app.route("/post/<post_id>")
 def post(post_id):
     if request.method == "GET":
+
+        # Get clicked post.
         post = Post.query.filter_by(id=post_id).first()
+
+        # Get replies of post.
         replies = Reply.query.filter_by(post_id=post_id).all()
+
         return render_template("post.html", post=post, replies=replies)
