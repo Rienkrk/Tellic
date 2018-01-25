@@ -156,21 +156,27 @@ def post(post_id):
         post = Post.query.filter_by(id=post_id).first()
 
         # Get replies of post.
-        replies = Reply.query.filter_by(post_id=post_id).all()
+        replies = Reply.query.filter_by(post_id=post_id).order_by(desc(Reply.created_on)).all()
 
         return render_template("post.html", post=post, replies=replies)
 
 @app.route("/favorite", methods=['GET', 'POST'])
 def favorite():
 
+    # get phone name from hidden form
     phone = request.form.get('phone')
 
-    addFavorite = Favorite(current_user.id, phone)
+    if not (Favorite(current_user.id, phone)):
 
-    db.session.add(addFavorite)
-    db.session.commit()
 
-    flash('Deze telefoon is toegevoegd aan uw favorieten!', 'alert-success')
+        # add favorite to database
+        addFavorite = Favorite(current_user.id, phone)
+        db.session.add(addFavorite)
+        db.session.commit()
+
+        flash('Deze telefoon is toegevoegd aan uw favorieten!', 'alert-success')
+    else:
+        flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
     return redirect("display/" + phone)
 
 
