@@ -163,14 +163,14 @@ def post(post_id):
 @app.route("/favorite", methods=['GET', 'POST'])
 def favorite():
 
-    favorite = request.form.get('phone')
+    phone = request.form.get('phone')
 
-    addFavorite = Favorite(current_user.id, favorite)
+    addFavorite = Favorite(current_user.id, phone)
 
-    db.session.add(favorite)
+    db.session.add(addFavorite)
     db.session.commit()
 
     flash('Deze telefoon is toegevoegd aan uw favorieten!', 'alert-success')
-    return redirect("display/" + favorite)
+    return redirect("display/" + phone)
 
 
