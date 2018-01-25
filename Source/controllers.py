@@ -166,8 +166,7 @@ def favorite():
 
     # get phone name from hidden form
     phone = request.form.get('phone')
-
-    if not (Favorite(current_user.id, phone)):
+    if not Favorite.query.filter_by(user_id=current_user.id, phone=phone).first():
 
 
         # add favorite to database
