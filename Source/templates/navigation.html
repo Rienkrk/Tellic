@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
   <a class="navbar-brand" href="{{ url_for('index') }}">Tellic</a>
 
@@ -16,8 +16,7 @@
       </li>
     </ul>
     <form class="search-form form-inline my-2 my-lg-0 nav-item">
-      <input class="form-control mr-sm-2" type="text" name="fname" id="fname" onkeyup="myFunction(this.value)" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Zoeken</button>
+      <input class="form-control mr-sm-2" type="text" name="fname" id="fname" onkeyup="myFunction(this.value, 'navigation')" placeholder="Search">
     </form>
     <div class="search-drop">
       <ul class="list-group">
@@ -42,5 +41,3 @@
   </div>
 
 </nav>
-
-<div id="lachen"></div>

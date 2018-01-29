@@ -137,17 +137,18 @@ def display(phone):
 
 @app.route("/reply", methods=['GET', 'POST'])
 def reply():
-    # Get written reply via POST.
-    reply = request.form.get("reply")
-    post_id = request.form.get("post_id")
+	# Get written reply via POST.
+	reply = request.form.get("reply")
+	post_id = request.form.get("post_id")
+	phone = request.form.get("phone")
 
-    # Add post to database.
-    newReply = Reply(current_user.id, post_id, reply, "tjest")
-    db.session.add(newReply)
-    db.session.commit()
-
-    flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
-    return redirect("post/" + post_id)
+	# Add post to database.
+	newReply = Reply(current_user.id, post_id, reply, phone)
+	db.session.add(newReply)
+	db.session.commit()
+	
+	flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
+	return redirect("post/" + post_id)
 
 @app.route("/post/<post_id>")
 def post(post_id):
@@ -178,5 +179,3 @@ def favorite():
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
     return redirect("display/" + phone)
-
-
