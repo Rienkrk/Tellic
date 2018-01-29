@@ -1,15 +1,17 @@
+.pagination-wrapper {
+  width: 70%;
+}
+
+.none {
+  display: none;
+}
+
 .reply-form {
   width: 70%;
   margin-top: 30px;
   -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-}
-
-.reply-button {
-  background: #4BBF73;
-  color: white;
-  border-radius: 5px;
 }
 
 .form-combine {
@@ -64,9 +66,12 @@
   width: 100%;
 }
 
-.post > p {
-  padding: 20px;
+.post p {
   margin-bottom: 0px;
+}
+
+.post-content {
+  padding: 20px;
 }
 
 .upper {
@@ -99,7 +104,7 @@
 }
 
 .reply-wrapper {
-  width: 70%;
+  width: 100%;
   display: flex;
   margin-top: 40px;
   justify-content: space-between;
@@ -134,9 +139,12 @@
   padding: 20px;
 }
 
-.reply > p {
-  padding: 20px;
+.reply p {
   margin-bottom: 0px;
+}
+
+.content {
+  padding: 20px;
 }
 
 .lower p {
