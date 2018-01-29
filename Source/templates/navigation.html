@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
   <a class="navbar-brand" href="{{ url_for('index') }}">Tellic</a>
 
@@ -19,8 +19,7 @@
       </li>
     </ul>
     <form class="search-form form-inline my-2 my-lg-0 nav-item">
-      <input class="form-control mr-sm-2" type="text" name="fname" id="fname" onkeyup="myFunction(this.value)" placeholder="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Zoeken</button>
+      <input class="form-control mr-sm-2" type="text" name="fname" id="fname" onkeyup="myFunction(this.value, 'navigation')" placeholder="Search">
     </form>
     <div class="search-drop">
       <ul class="list-group">
@@ -29,7 +28,7 @@
     {% if current_user.is_authenticated %}
 
       <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item"><a class="text-white" href="{{ url_for('profiel') }}"></span>Hallo, {{ current_user.username }} </a></li>
+        <li class="nav-item"><a class="text-white" href="{{ url_for('profiel', username=current_user.username) }}"></span>Hallo, {{ current_user.username }} </a></li>
         <li class="nav-item"><a class="text-white" href="{{ url_for('logout') }}"></span >Log uit</a></li>
       </ul>
 
@@ -45,5 +44,3 @@
   </div>
 
 </nav>
-
-<div id="lachen"></div>

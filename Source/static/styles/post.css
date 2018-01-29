@@ -1,6 +1,145 @@
-.h3 {
-    padding: 15px;
+.reply-form {
+  width: 70%;
+  margin-top: 30px;
+  -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
-.h4 {
-    padding:15px;
+
+.reply-button {
+  background: #4BBF73;
+  color: white;
+  border-radius: 5px;
+}
+
+.form-combine {
+  display: flex;
+  margin-top: 15px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.results {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.results span {
+  display: block;
+  background: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.results span:hover {
+  background: #4BBF73;
+  color: white;
+}
+
+.form-combine input {
+  width: 30%;
+  margin-left: 20px;
+}
+
+.selected {
+  background: white;
+  padding: 11px 20px;
+  border-radius: 5px;
+}
+
+.container {
+  margin-top: 70px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.post {
+  background: white;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.post > p {
+  padding: 20px;
+  margin-bottom: 0px;
+}
+
+.upper {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left {
+  display: flex;
+  align-items: flex-end;
+}
+
+.upper p {
+  display: block;
+  margin: 0 0 0 20px;
+}
+
+.focus {
+  color: #4BBF73;
+}
+
+.upper h4 {
+  margin-bottom: 0px;
+  color: white;
+}
+
+.reply-wrapper {
+  width: 70%;
+  display: flex;
+  margin-top: 40px;
+  justify-content: space-between;
+}
+
+.recomendation {
+  width: calc(25% - 40px);
+  background: white;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.recomendation H6 {
+  margin-top: 20px;
+}
+
+.reply {
+  background: white;
+  border-radius: 5px;
+  width: 75%;
+  /* text-align: right; */
+}
+
+.lower {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.reply > p {
+  padding: 20px;
+  margin-bottom: 0px;
+}
+
+.lower p {
+  display: block;
+  margin: 0 0 0 20px;
 }

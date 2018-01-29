@@ -4,6 +4,9 @@ from api import *
 import json
 from sqlalchemy import desc
 from collections import Counter
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from flask_wtf import FlaskForm
+from wtforms.validators import DataRequired
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
@@ -117,15 +120,16 @@ def index():
 
     return render_template("index.html", posts=posts, popular=popular)
 
-@app.route("/profiel")
+@app.route("/profiel/<username>")
 @login_required
-def profiel():
+def profiel(username):
 
-    replies = Reply.query.filter_by(user_id=current_user.id).all()
-    posts = Post.query.filter_by(user_id=current_user.id).all()
-    favorites = Favorite.query.filter_by(user_id=current_user.id).all()
-
-    return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
+	userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
+	replies = Reply.query.filter_by(user_id=userInstance[0]).all()
+	posts = Post.query.filter_by(user_id=userInstance[0]).all()
+	favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
+	return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
+	# return userInstance
 
 @app.route("/display/<phone>")
 def display(phone):
@@ -137,17 +141,18 @@ def display(phone):
 
 @app.route("/reply", methods=['GET', 'POST'])
 def reply():
-    # Get written reply via POST.
-    reply = request.form.get("reply")
-    post_id = request.form.get("post_id")
+	# Get written reply via POST.
+	reply = request.form.get("reply")
+	post_id = request.form.get("post_id")
+	phone = request.form.get("phone")
 
-    # Add post to database.
-    newReply = Reply(current_user.id, post_id, reply, "tjest")
-    db.session.add(newReply)
-    db.session.commit()
+	# Add post to database.
+	newReply = Reply(current_user.id, post_id, reply, phone)
+	db.session.add(newReply)
+	db.session.commit()
 
-    flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
-    return redirect("post/" + post_id)
+	flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
+	return redirect("post/" + post_id)
 
 @app.route("/post/<post_id>")
 def post(post_id):
@@ -178,6 +183,7 @@ def favorite():
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
     return redirect("display/" + phone)
+<<<<<<< HEAD
 
 
 
@@ -278,3 +284,5 @@ def browse():
         return render_template("browse.html")
 
 
+=======
+>>>>>>> 09d4efe045e2d0b294b66925f585aa3d0405fb6e

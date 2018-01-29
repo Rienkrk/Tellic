@@ -11,33 +11,72 @@
 {% endblock %}
 
 {% block main %}
-    <h3 class="h3"> Post </h3>
 
+<div class="container">
 
-    <div class="card border-primary mb-3">
-      <div class="card-header">posted by: {{ post.user['username'] }}, {{ post['created_on'] }}</div>
-      <div class="card-body text-primary">
-        <h5 class="card-title">{{post['title']}}</h5>
-        <p class="card-text">{{post['text']}}</p>
+  <div class="post">
+    <div class="upper bg-dark">
+      <div class="left">
+        <h4>{{post['title']}}</h4>
+        <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a></span></p>
+      </div>
+      <div class="right">
+        <p>{{ post['created_on'] }}</p>
       </div>
     </div>
-        <h4 class="h4">Replies</h4>
-        {% for reply in replies %}
-        <div class="card border-primary mb-3" style="max-width: 40rem;">
-            <div class="card-header">reply posted by: {{ reply.user['username'] }}, {{ reply['created_on'] }}</div>
-            <div class="card-body text-primary">
-            <p class="card-text"> {{ reply['text'] }} </p>
-            </div>
+    <p>{{post['text']}}</p>
+  </div>
+
+  <form class="reply-form" action="{{ url_for('reply') }}" method="post">
+      <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
+      <input id="phoneInput" type="hidden" name="phone"/>
+      <textarea class="form-control" id="mytextarea" name="reply" rows="6" placeholder="Schrijf hier uw antwoord!"></textarea>
+      <div class="form-combine">
+        <button class="btn reply-button" type="submit">Plaats een opmerking</button>
+        <input class="form-control mr-sm-2" type="text" onkeyup="myFunction(this.value, 'createReply')" placeholder="Search">
+        <div class="selected">Geselecteerd: <span class="focus selected-phone">Geen</span></div>
+      </div>
+
+      <div class="results">
+      </div>
+  </form>
+
+  <script type="text/javascript">
+  var editor = textboxio.replace('#mytextarea');
+</script>
+
+  {% for reply in replies %}
+
+  <div class="reply-wrapper">
+
+    <div class="reply">
+      <p>{{ reply['text']|safe }}</p>
+      <div class="lower bg-dark">
+        <div class="left">
+          <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=reply.user['username']) }}">{{ reply.user['username'] }}</a></span></p>
         </div>
-        {% endfor %}
-
-
-    <div>
-        <form class="form-control" action="{{ url_for('reply') }}" method="post">
-            <label for="exampleTextarea">Reply</label>
-            <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
-            <textarea class="form-control" id="exampleTextarea" name="reply" rows="6" placeholder="Schrijf hier uw antwoord!"></textarea>
-            <button class="btn btn-primary" type="submit">Reply!</button>
-        </form>
+        <div class="right">
+          <p>{{ reply['created_on'] }}</p>
+        </div>
+      </div>
     </div>
+
+    <div class="recomendation">
+
+      <h6>Aanbeveling</h6>
+      {% if reply['phone'] != "" %}
+        <span><a href="{{ url_for('display', phone=reply['phone']) }}"{{ reply['phone'] }}>{{reply['phone']}}</a></span>
+      {% else %}
+        <span>Geen</span>
+      {% endif %}
+
+
+    </div>
+
+  </div>
+
+  {% endfor %}
+
+</div>
+
 {% endblock %}

@@ -1,3 +1,7 @@
+body {
+  background: #e9ecef !important; 
+}
+
 .reset {
   padding: 0px;
   margin: 0px;
@@ -22,8 +26,9 @@
 .search-drop {
   height: auto;
   width: 400px;
-  background: blue;
+  height: 500px;
+  overflow-y: auto;
   position: absolute;
   right: 240px;
-  margin-top: 160px;
+  margin-top: 297px;
 }

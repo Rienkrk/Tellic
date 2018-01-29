@@ -18,6 +18,7 @@
 <div class="column">
 {% for post in posts %}
 
+<<<<<<< HEAD
   <div class="card border-primary mb-3">
     <div class="card-header">posted by: {{ post.user['username'] }}, {{ post['created_on'] }}</div>
       <div class="card-body text-primary">
@@ -25,6 +26,18 @@
         <p class="card-text">{{post['text']}}</p>
         <a href= "{{ url_for('post', post_id=post['id']) }}" class="card-link">Ga naar de post</a>
       </div>
+=======
+
+  <div class="posts">
+    <div class="card border-primary mb-3">
+      <div class="card-header">posted by: <a href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a>, {{ post['created_on'] }}</div>
+        <div class="card-body text-primary">
+          <h5 class="card-title">{{post['title']}}</h5>
+          <p class="card-text">{{post['text']}}</p>
+          <a href= "{{ url_for('post', post_id=post['id']) }}" class="card-link">Ga naar de post</a>
+        </div>
+    </div>
+>>>>>>> 09d4efe045e2d0b294b66925f585aa3d0405fb6e
   </div>
 
 {% endfor %}
