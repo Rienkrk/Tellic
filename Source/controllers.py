@@ -117,13 +117,13 @@ def index():
 
     return render_template("index.html", posts=posts, popular=popular)
 
-@app.route("/profiel")
+@app.route("/profiel/<username>")
 @login_required
-def profiel():
+def profiel(username):
 
-    replies = Reply.query.filter_by(user_id=current_user.id).all()
-    posts = Post.query.filter_by(user_id=current_user.id).all()
-    favorites = Favorite.query.filter_by(user_id=current_user.id).all()
+    replies = Reply.query.filter_by(username=username).all()
+    posts = Post.query.filter_by(username=username).all()
+    favorites = Favorite.query.filter_by(username=username).all()
 
     return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
 
@@ -146,7 +146,7 @@ def reply():
 	newReply = Reply(current_user.id, post_id, reply, phone)
 	db.session.add(newReply)
 	db.session.commit()
-	
+
 	flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
 	return redirect("post/" + post_id)
 
