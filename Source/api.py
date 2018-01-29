@@ -35,6 +35,32 @@ class FonApi:
         except AttributeError:
             return result
 
+    def getlatestBrand(self, limit, brand):
+
+        url = self.__ApiUrl + 'getlatest'
+        postdata = {'brand': brand,
+                    'limit': limit,
+                    'token': self.__ApiKey}
+        headers = {'content-type': 'application/json'}
+        result = self.sendpostdata(url, postdata, headers)
+        try:
+            return result.json()
+        except AttributeError:
+            return result
+
+    def getlatest(self, limit):
+        url = self.__ApiUrl + 'getlatest'
+        postdata = {
+                    'limit': limit,
+                    'token': self.__ApiKey}
+        headers = {'content-type': 'application/json'}
+        result = self.sendpostdata(url, postdata, headers)
+        try:
+            return result.json()
+        except AttributeError:
+            return result
+
+
     def sendpostdata(self, url, postdata, headers, result = None):
         """
             Send data to the server

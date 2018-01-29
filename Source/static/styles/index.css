@@ -8,10 +8,6 @@
     color: blue;
 }
 
-.posts {
-    max-width: 35rem;
-}
-
 .favorites {
     margin-left: 700px;
 }
@@ -21,3 +17,9 @@
     width: 50%;
     padding: 15px;
 }
+<<<<<<< HEAD
+=======
+.card {
+    max-width: 35rem;
+}
+>>>>>>> 31cf2dc87c1bf65a3560c695dedfd21a6e24028b
