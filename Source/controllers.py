@@ -4,6 +4,9 @@ from api import *
 import json
 from sqlalchemy import desc
 from collections import Counter
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
+from flask_wtf import FlaskForm
+from wtforms.validators import DataRequired
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
