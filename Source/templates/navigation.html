@@ -25,7 +25,7 @@
     {% if current_user.is_authenticated %}
 
       <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item"><a class="text-white" href="{{ url_for('profiel') }}"></span>Hallo, {{ current_user.username }} </a></li>
+        <li class="nav-item"><a class="text-white" href="{{ url_for('profiel', username=current_user.username) }}"></span>Hallo, {{ current_user.username }} </a></li>
         <li class="nav-item"><a class="text-white" href="{{ url_for('logout') }}"></span >Log uit</a></li>
       </ul>
 
