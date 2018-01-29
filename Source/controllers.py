@@ -180,3 +180,101 @@ def favorite():
     return redirect("display/" + phone)
 
 
+
+@app.route("/browse", methods=['GET', 'POST'])
+def browse():
+    if request.method == 'POST':
+
+        # Uses the token to get into the API.
+        fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+
+        # Get values from form.
+        brand = request.form.get('brand')
+        minSize = request.form.get('minSize')
+        maxSize = request.form.get('maxSize')
+        OS = request.form.get('OS')
+        camera = request.form.get('camera')
+        SIM = request.form.get('SIM')
+        year = request.form.get('year')
+
+        if not brand:
+
+            # Get the 100 latest phones.
+            phones = fon.getlatest(100)
+
+            # Filter by size.
+            if minSize and maxSize:
+                phones = [phone for phone in phones if
+                float(phone['size'][:3])>=float(minSize) and float(phone['size'][:3]) <= float(maxSize)]
+
+            # Filter by Operating System.
+            if OS == 'iOS':
+                phones = [phone for phone in phones if 'os' in phone and phone['os'][:3]=='iOS']
+            elif OS == 'Android':
+                phones = [phone for phone in phones if 'os' in phone and phone['os'][:7]=='Android']
+
+            # Filter by camera type.
+            if camera == 'Dual':
+                phones = [phone for phone in phones if 'primary_' in phone and phone['primary_'][:4]=='Dual']
+            elif camera == 'normal':
+                phones = [phone for phone in phones if 'primary_' in phone and phone['primary_'][:4]!='Dual']
+
+            # Filter by SIM type.
+            if SIM == 'Single':
+                phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:5]=='Single']
+            elif SIM == 'Dual':
+                phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:4]=='Dual']
+            elif SIM == 'Hybrid':
+                phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:6]=='Hybrid']
+
+            # Filter by announce year.
+            if year:
+                phones = [phone for phone in phones if phone['announced'][:4] == year]
+
+
+
+            return render_template("found.html", phones=phones)
+
+        else:
+
+            # Get the 100 latest phones of a certain brand.
+            phones = fon.getlatestBrand(100, brand)
+
+            if minSize and maxSize:
+                # Filter by size.
+                phones = [phone for phone in phones if
+                float(phone['size'][:3])>=float(minSize) and float(phone['size'][:3]) <= float(maxSize)]
+
+            if OS == 'iOS':
+                phones = [phone for phone in phones if 'os' in phone and phone['os'][:3]=='iOS']
+            elif OS == 'Android':
+                phones = [phone for phone in phones if 'os' in phone and phone['os'][:7]=='Android']
+
+
+            # Filter by camera type
+            if camera == 'Dual':
+                phones = [phone for phone in phones if 'primary_' in phone and phone['primary_'][:4]=='Dual']
+            elif camera == 'normal':
+                phones = [phone for phone in phones if 'primary_' in phone and phone['primary_'][:4]!='Dual']
+            phones = [phone for phone in phones if phone['gprs']=='Yes']
+
+
+            # Filter by SIM type.
+            if SIM == 'Single':
+                phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:5]=='Single']
+            elif SIM == 'Dual':
+                phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:4]=='Dual']
+            elif SIM == 'Hybrid':
+                phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:6]=='Hybrid']
+
+            # Filter by announce year.
+            if year:
+                phones = [phone for phone in phones if phone['announced'][:4] == year]
+
+            return render_template("found.html", phones=phones)
+
+    else:
+
+        return render_template("browse.html")
+
+

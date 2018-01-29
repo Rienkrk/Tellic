@@ -8,10 +8,6 @@
     color: blue;
 }
 
-.posts {
-    max-width: 35rem;
-}
-
 .favorites {
     margin-left: 700px;
 }
@@ -20,4 +16,7 @@
     float: left;
     width: 50%;
     padding: 15px;
+}
+.card {
+    max-width: 35rem;
 }
