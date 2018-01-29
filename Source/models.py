@@ -37,7 +37,7 @@ class Post(db.Model):
     created_on = db.Column(db.DateTime, server_default=db.func.now())
 
     # dit even weggelaten anders werk reply.user['username'] in post.html niet
-    #replies = db.relationship('Reply', backref='user', lazy=True)
+    replies = db.relationship('Reply', backref='post', lazy=True)
 
     def __init__(self, user_id, title, text):
         self.user_id = user_id
@@ -54,6 +54,8 @@ class Reply(db.Model):
     text = db.Column(db.String(255), nullable=False)
     phone = db.Column(db.String(80), nullable=True)
     created_on = db.Column(db.DateTime, server_default=db.func.now())
+
+    posts = db.relationship('Post', backref='reply', lazy=True)
 
     def __init__(self, user_id, post_id, text, phone):
         self.user_id = user_id

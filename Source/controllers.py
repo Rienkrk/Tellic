@@ -124,11 +124,12 @@ def index():
 @login_required
 def profiel(username):
 
-    replies = Reply.query.filter_by(username=username).all()
-    posts = Post.query.filter_by(username=username).all()
-    favorites = Favorite.query.filter_by(username=username).all()
-
-    return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
+	userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
+	replies = Reply.query.filter_by(user_id=userInstance[0]).all()
+	posts = Post.query.filter_by(user_id=userInstance[0]).all()
+	favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
+	return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
+	# return userInstance
 
 @app.route("/display/<phone>")
 def display(phone):
