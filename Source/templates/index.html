@@ -21,7 +21,7 @@
 
   <div class="posts">
     <div class="card border-primary mb-3">
-      <div class="card-header">posted by: {{ post.user['username'] }}, {{ post['created_on'] }}</div>
+      <div class="card-header">posted by: <a href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a>, {{ post['created_on'] }}</div>
         <div class="card-body text-primary">
           <h5 class="card-title">{{post['title']}}</h5>
           <p class="card-text">{{post['text']}}</p>

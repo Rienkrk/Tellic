@@ -18,7 +18,7 @@
     <div class="upper bg-dark">
       <div class="left">
         <h4>{{post['title']}}</h4>
-        <p>Gepost door <span class="focus">{{ post.user['username'] }}</span></p>
+        <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a></span></p>
       </div>
       <div class="right">
         <p>{{ post['created_on'] }}</p>
@@ -53,7 +53,7 @@
       <p>{{ reply['text']|safe }}</p>
       <div class="lower bg-dark">
         <div class="left">
-          <p>Gepost door <span class="focus">{{ reply.user['username'] }}</span></p>
+          <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=reply.user['username']) }}">{{ reply.user['username'] }}</a></span></p>
         </div>
         <div class="right">
           <p>{{ reply['created_on'] }}</p>
