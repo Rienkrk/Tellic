@@ -5,7 +5,7 @@ import requests
 import json
 from sqlalchemy import desc
 from collections import Counter
-from helpers import phone_filter
+from helpers import *
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
@@ -160,14 +160,16 @@ def profiel(username):
 
 @app.route("/display/<phone>")
 def display(phone):
-    # Uses the token to get into the API.
-    # fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-    # Get all the information about a specific phone and return to the html file.
-    # phone = fon.getdevice(phone)
-    # return render_template("display.html", phone=phone)
+
+	headers = {'User-Agent': 'My User Agent 1.0', 'From': 'youremail@domain.com'}
 	url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
-	test = requests.get(url).json()
-	return test
+	data = requests.get(url, headers=headers).json()
+	data = data['data']['result']['items'][0]['media']
+	 # Uses the token to get into the API.
+	fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+	phone = fon.getdevice(phone)
+	return render_template("display.html", phone=phone, data=data)
+
 
 @app.route("/reply", methods=['GET', 'POST'])
 def reply():
@@ -177,10 +179,12 @@ def reply():
 	phone = request.form.get("phone")
 
     # Make sure the reply is not longer than 1000 characters.
+
 	if len(reply) > 1000:
 	    flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
 	    return redirect("reply")
 	else:
+
 	    # Add post to database.
 	    newReply = Reply(current_user.id, post_id, reply, phone)
 	    db.session.add(newReply)
@@ -218,6 +222,7 @@ def favorite():
 
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
+
     return redirect("display/" + phone)
 
 
@@ -260,5 +265,8 @@ def browse():
 
     else:
 
-        return render_template("browse.html")
+        # By default, show latest 100 phones.
+        phones = fon.getlatest(100)
+        return render_template("browse.html", phones=phones)
+
 
