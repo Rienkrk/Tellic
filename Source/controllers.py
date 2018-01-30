@@ -29,27 +29,28 @@ def register():
 
         elif password != passwordCheck:
             flash('Oops! Wachtwoorden komen niet overheen!', 'alert-danger')
-            return render_template('register.html')
+            return render_template("register.html", username=username, password=password, passwordCheck=passwordCheck)
 
         elif User.query.filter_by(username=username).first():
             flash("Helaas! Uw gebruikersnaam is al in gebruik!", 'alert-warning')
-            return redirect(url_for("register"))
+            return render_template("register.html", username=username, password=password, passwordCheck=passwordCheck)
 
         # Make sure the username consists of only numbers and letters.
         elif username.isalnum() == False:
             flash("Uw gebruikersnaam mag alleen bestaan uit letters en cijfers!", 'alert-warning')
-            return redirect(url_for("register"))
+            return render_template("register.html", username=username, password=password, passwordCheck=passwordCheck)
 
-        # Make sure both username and password have a minimal and or maximal length.
+        # Make sure both username and password have a minimal and maximal length.
         elif len(username) < 5 or len(username) > 15:
             flash("Uw gebruikersnaam dient tussen de 5 en 15 tekens lang zijn!", 'alert-warning')
-            return redirect(url_for("register"))
+            return render_template("register.html", username=username, password=password, passwordCheck=passwordCheck)
 
-        elif len(password) < 5:
+        elif len(password) < 5 or len(password) > 40:
             flash("Uw wachtwoord dient minimaal 5 tekens lang te zijn!", 'alert-warning')
-            return redirect(url_for("register"))
+            return render_template("register.html", username=username, password=password, passwordCheck=passwordCheck)
 
         else:
+            # Add user to database.
             hashedPassword = bcrypt.generate_password_hash(password).decode("utf-8")
             newuser = User(username, hashedPassword)
             db.session.add(newuser)
@@ -79,13 +80,13 @@ def login():
 
         if not password or not username:
             flash('Oops! Geef zowel een gebruikersnaam als een wachtwoord op!', 'alert-danger')
-            return redirect(url_for("login"))
+            return render_template("login.html", username=username, password=password)
 
         userInstance = User.query.filter_by(username=username).first()
 
         if not userInstance:
             flash('Oops! U heeft een verkeerd wachtwoord of gebruikersnaam opgegeven!', 'alert-danger')
-            return redirect(url_for("login"))
+            return render_template("login.html", username=username, password=password)
         else:
             if bcrypt.check_password_hash(userInstance.password, password) == True:
                 login_user(userInstance)
@@ -118,11 +119,11 @@ def createPost():
         # Make sure the title and post have a cap.
         if len(post) > 1500:
             flash("Uw post mag maximaal uit 1500 tekens bestaan!", 'alert-warning')
-            return redirect(url_for("createPost"))
+            return render_template("createPost.html", title=title, post=post)
 
         elif len(title) > 100:
             flash("Uw titel mag maximaal uit 100 tekens bestaan!", 'alert-warning')
-            return redirect(url_for("createPost"))
+            return render_template("createPost.html", title=title, post=post)
 
         else:
             # Add post to database.
@@ -159,18 +160,16 @@ def profiel(username):
 
 @app.route("/display/<phone>")
 def display(phone):
-    # Uses the token to get into the API.
 
-    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+	headers = {'User-Agent': 'My User Agent 1.0', 'From': 'youremail@domain.com'}
+	url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
+	data = requests.get(url, headers=headers).json()
+	data = data['data']['result']['items'][0]['media']
+	 # Uses the token to get into the API.
+	fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+	phone = fon.getdevice(phone)
+	return render_template("display.html", phone=phone, data=data)
 
-    # fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-
-    # Get all the information about a specific phone and return to the html file.
-    # phone = fon.getdevice(phone)
-    # return render_template("display.html", phone=phone)
-    url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
-    test = requests.get(url).json()
-    return test
 
 @app.route("/reply", methods=['GET', 'POST'])
 def reply():
@@ -180,10 +179,12 @@ def reply():
 	phone = request.form.get("phone")
 
     # Make sure the reply is not longer than 1000 characters.
-    if len(reply) > 1000:
-        flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
-        return redirect(url_for("post"))
-    else:
+
+	if len(reply) > 1000:
+	    flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
+	    return redirect("reply")
+	else:
+
 	    # Add post to database.
 	    newReply = Reply(current_user.id, post_id, reply, phone)
 	    db.session.add(newReply)
@@ -221,8 +222,6 @@ def favorite():
 
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
-
-        return redirect("display/" + phone)
 
     return redirect("display/" + phone)
 

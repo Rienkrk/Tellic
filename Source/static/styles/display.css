@@ -33,3 +33,9 @@ td:first-child {
 h6 {
   margin-bottom: 30px;
 }
+
+img {
+  width: 70%;
+  border-radius: 5px;
+  margin-bottom: 50px;
+}

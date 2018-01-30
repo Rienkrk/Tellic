@@ -17,11 +17,11 @@
     <form class="form-signin" action="{{ url_for('register') }}" method="post">
       <h2 class="form-signin-heading">Het begin van uw avontuur!</h2>
       <label for="inputEmail" class="sr-only">Gebruikersnaam</label>
-      <input type="text" id="inputEmail" class="form-control" name="username" placeholder="Gebruikersnaam" required autofocus>
+      <input type="text" id="inputEmail" class="form-control" value = "{{ username }}" name="username" placeholder="Gebruikersnaam" required autofocus>
       <label for="inputPassword" class="sr-only">Wachtwoord</label>
-      <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Wachtwoord" required>
+      <input type="password" id="inputPassword" class="form-control" value = "{{ password }}" name="password" placeholder="Wachtwoord" required>
       <label for="inputPasswordCheck" class="sr-only">Wachtwoord</label>
-      <input type="password" id="inputPasswordCheck" class="form-control" name="passwordCheck" placeholder="Herhaal wachtwoord" required>
+      <input type="password" id="inputPasswordCheck" class="form-control" value = "{{ passwordCheck }}" name="passwordCheck" placeholder="Herhaal wachtwoord" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Registreer</button>
     </form>
 
