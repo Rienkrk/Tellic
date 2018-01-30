@@ -35,6 +35,20 @@ def register():
             flash("Helaas! Uw gebruikersnaam is al in gebruik!", 'alert-warning')
             return redirect(url_for("register"))
 
+        # Make sure the username consists of only numbers and letters.
+        elif username.isalnum() == False:
+            flash("Uw gebruikersnaam mag alleen bestaan uit letters en cijfers!", 'alert-warning')
+            return redirect(url_for("register"))
+
+        # Make sure both username and password have a minimal and or maximal length.
+        elif len(username) < 5 or len(username) > 15:
+            flash("Uw gebruikersnaam dient tussen de 5 en 15 tekens lang zijn!", 'alert-warning')
+            return redirect(url_for("register"))
+
+        elif len(password) < 5:
+            flash("Uw wachtwoord dient minimaal 5 tekens lang te zijn!", 'alert-warning')
+            return redirect(url_for("register"))
+
         else:
             hashedPassword = bcrypt.generate_password_hash(password).decode("utf-8")
             newuser = User(username, hashedPassword)
@@ -101,13 +115,23 @@ def createPost():
         title = request.form.get("title")
         post = request.form.get("post")
 
-        # Add post to database.
-        newPost = Post(current_user.id, title, post)
-        db.session.add(newPost)
-        db.session.commit()
+        # Make sure the title and post have a cap.
+        if len(post) > 1500:
+            flash("Uw post mag maximaal uit 1500 tekens bestaan!", 'alert-warning')
+            return redirect(url_for("createPost"))
 
-        flash('U heeft uw post succesvol aangemaakt!', 'alert-success')
-        return redirect(url_for("index"))
+        elif len(title) > 100:
+            flash("Uw titel mag maximaal uit 100 tekens bestaan!", 'alert-warning')
+            return redirect(url_for("createPost"))
+
+        else:
+            # Add post to database.
+            newPost = Post(current_user.id, title, post)
+            db.session.add(newPost)
+            db.session.commit()
+
+            flash('U heeft uw post succesvol aangemaakt!', 'alert-success')
+            return redirect(url_for("index"))
 
 @app.route("/")
 def index():
@@ -126,7 +150,7 @@ def index():
 @login_required
 def profiel(username):
 
-	userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
+    userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
 	replies = Reply.query.filter_by(user_id=userInstance[0]).all()
 	posts = Post.query.filter_by(user_id=userInstance[0]).all()
 	favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
@@ -136,7 +160,12 @@ def profiel(username):
 @app.route("/display/<phone>")
 def display(phone):
     # Uses the token to get into the API.
+<<<<<<< HEAD
+    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+
+=======
     # fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+>>>>>>> f7252ac983dcd4bb4086a31b33b5eae859366215
     # Get all the information about a specific phone and return to the html file.
     # phone = fon.getdevice(phone)
     # return render_template("display.html", phone=phone)
@@ -151,13 +180,19 @@ def reply():
 	post_id = request.form.get("post_id")
 	phone = request.form.get("phone")
 
-	# Add post to database.
-	newReply = Reply(current_user.id, post_id, reply, phone)
-	db.session.add(newReply)
-	db.session.commit()
+    # Make sure the reply is not longer than 1000 characters.
+	if len(reply) > 1000:
+	    flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
+        return redirect(url_for("post"))
 
-	flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
-	return redirect("post/" + post_id)
+    else:
+	    # Add post to database.
+	    newReply = Reply(current_user.id, post_id, reply, phone)
+	    db.session.add(newReply)
+	    db.session.commit()
+
+	    flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
+	    return redirect("post/" + post_id)
 
 @app.route("/post/<post_id>")
 def post(post_id):
@@ -185,8 +220,12 @@ def favorite():
         db.session.commit()
 
         flash('Deze telefoon is toegevoegd aan uw favorieten!', 'alert-success')
+
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
+<<<<<<< HEAD
+        return redirect("display/" + phone)
+=======
     return redirect("display/" + phone)
 
 
@@ -229,7 +268,12 @@ def browse():
 
     else:
 
+<<<<<<< HEAD
         # By default, show latest 100 phones.
         phones = fon.getlatest(100)
         return render_template("browse.html", phones=phones)
 
+=======
+        return render_template("browse.html")
+>>>>>>> f7252ac983dcd4bb4086a31b33b5eae859366215
+>>>>>>> 44b3383d7c33ce6c16f5cc83be64c1257f3ae9ec
