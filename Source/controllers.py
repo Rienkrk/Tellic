@@ -7,10 +7,13 @@ from sqlalchemy import desc
 from collections import Counter
 from helpers import *
 
+# Initialize API.
+fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+
 @app.route("/search", methods=['GET', 'POST'])
 def search():
 	var = request.args['searchText']
-	phones = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5').getdevice(var)
+	phones = fon.getdevice(var)
 
 	return json.dumps({'phones':phones});
 
@@ -156,19 +159,15 @@ def profiel(username):
     posts = Post.query.filter_by(user_id=userInstance[0]).all()
     favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
     return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
-    # return userInstance
 
 @app.route("/display/<phone>")
 def display(phone):
 
-	headers = {'User-Agent': 'My User Agent 1.0', 'From': 'youremail@domain.com'}
-	url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
-	data = requests.get(url, headers=headers).json()
-	data = data['data']['result']['items'][0]['media']
-	 # Uses the token to get into the API.
-	fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-	phone = fon.getdevice(phone)
-	return render_template("display.html", phone=phone, data=data)
+    # Get image from Qwant API
+    image = Qwant.get_image(phone)
+    # Get specifications from fonAPI
+    phone = fon.getdevice(phone)
+    return render_template("display.html", phone=phone, image=image)
 
 
 @app.route("/reply", methods=['GET', 'POST'])
@@ -179,7 +178,6 @@ def reply():
 	phone = request.form.get("phone")
 
     # Make sure the reply is not longer than 1000 characters.
-
 	if len(reply) > 1000:
 	    flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
 	    return redirect("reply")
@@ -228,8 +226,6 @@ def favorite():
 
 @app.route("/browse", methods=['GET', 'POST'])
 def browse():
-    # Uses the token to get into the API.
-    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
 
     if request.method == 'POST':
 

@@ -121,7 +121,7 @@
     {% for phone in phones %}
       <div class="bg-light">
 
-        <a class="focus" href="{{ url_for('display', phone=phone[0]) }}" class="card-link">{{ phone['DeviceName'] }}</a>
+        <a class="focus" href="{{ url_for('display', phone=phone['DeviceName']) }}" class="card-link">{{ phone['DeviceName'] }}</a>
 
 
       </div>
@@ -129,4 +129,5 @@
     </div>
   </div>
 </div>
+
 {% endblock %}

@@ -31,9 +31,3 @@ def phone_filter(phones, minSize, maxSize, OS, camera, SIM, year):
 
     # Return result.
     return phones
-
-def initialize_API():
-
-    # Uses the token to get into the API.
-    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-    return fon

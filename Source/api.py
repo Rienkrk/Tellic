@@ -90,3 +90,13 @@ class FonApi:
         except requests.exceptions.RequestException as e:
             # A serious problem happened, like an SSLError or InvalidURL
             return "Connect error. Check URL"
+
+class Qwant:
+
+    # Returns image url of given phone.
+    def get_image(phone):
+        headers = {'User-Agent': 'My User Agent 1.0', 'From': 'youremail@domain.com'}
+        url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
+        data = requests.get(url, headers=headers).json()
+        data = data['data']['result']['items'][0]['media']
+        return data
