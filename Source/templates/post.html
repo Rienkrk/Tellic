@@ -32,7 +32,7 @@
   <form class="reply-form" action="{{ url_for('reply') }}" method="post">
       <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
       <input id="phoneInput" type="hidden" name="phone"/>
-      <textarea class="form-control" id="mytextarea" name="reply" rows="6" placeholder="Schrijf hier uw antwoord!"></textarea>
+      <textarea class="form-control" id="mytextarea" value = "{{ reply }}" name="reply" rows="6" placeholder="Schrijf hier uw antwoord! (maximaal 1000 tekens)"></textarea>
       <div class="form-combine">
         <button class="btn ab-button" type="submit">Plaats uw opmerking</button>
         <input class="form-control mr-sm-2" type="text" onkeyup="myFunction(this.value, 'createReply')" placeholder="Search">
