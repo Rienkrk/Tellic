@@ -1,6 +1,7 @@
 from app import *
 from models import *
 from api import *
+import requests
 import json
 from sqlalchemy import desc
 from collections import Counter
@@ -131,10 +132,13 @@ def profiel(username):
 @app.route("/display/<phone>")
 def display(phone):
     # Uses the token to get into the API.
-    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+    # fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
     # Get all the information about a specific phone and return to the html file.
-    phone = fon.getdevice(phone)
-    return render_template("display.html", phone=phone)
+    # phone = fon.getdevice(phone)
+    # return render_template("display.html", phone=phone)
+	url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
+	test = requests.get(url).json()
+	return test
 
 @app.route("/reply", methods=['GET', 'POST'])
 def reply():
