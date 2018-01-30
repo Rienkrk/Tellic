@@ -183,8 +183,6 @@ def favorite():
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
     return redirect("display/" + phone)
-<<<<<<< HEAD
-
 
 
 @app.route("/browse", methods=['GET', 'POST'])
@@ -283,6 +281,3 @@ def browse():
 
         return render_template("browse.html")
 
-
-=======
->>>>>>> 09d4efe045e2d0b294b66925f585aa3d0405fb6e
