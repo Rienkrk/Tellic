@@ -180,17 +180,16 @@ def favorite():
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
     return redirect("display/" + phone)
-<<<<<<< HEAD
 
-=======
->>>>>>> fd8fedfe4149d5eaa8f1fd570d955f5bd89bdd8a
 
 @app.route("/browse", methods=['GET', 'POST'])
 def browse():
+    # Uses the token to get into the API.
+    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+
     if request.method == 'POST':
 
-        # Uses the token to get into the API.
-        fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+
 
         # Get values from form.
         brand = request.form.get('brand')
@@ -275,12 +274,9 @@ def browse():
             if year:
                 phones = [phone for phone in phones if phone['announced'][:4] == year]
 
-            return render_template("found.html", phones=phones)
+            return render_template("browse.html", phones=phones)
 
     else:
+        phones = fon.getlatest(100)
+        return render_template("browse.html", phones=phones)
 
-        return render_template("browse.html")
-<<<<<<< HEAD
-
-=======
->>>>>>> fd8fedfe4149d5eaa8f1fd570d955f5bd89bdd8a
