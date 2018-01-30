@@ -12,58 +12,75 @@
 
 {% block main %}
 
-<h1 >Welkom op Tellic</h1>
+<div class="row">
 
-<h3 class="h3"> Posts </h3>
-<div class="column">
-{% for post in posts %}
+  <div class="col-sm-7">
 
-<<<<<<< HEAD
-  <div class="card border-primary mb-3">
-    <div class="card-header">posted by: {{ post.user['username'] }}, {{ post['created_on'] }}</div>
-      <div class="card-body text-primary">
-        <h5 class="card-title">{{post['title']}}</h5>
-        <p class="card-text">{{post['text']}}</p>
-        <a href= "{{ url_for('post', post_id=post['id']) }}" class="card-link">Ga naar de post</a>
-      </div>
-=======
+    <h6>Laatste posts</h6>
 
-  <div class="posts">
-    <div class="card border-primary mb-3">
-      <div class="card-header">posted by: <a href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a>, {{ post['created_on'] }}</div>
-        <div class="card-body text-primary">
-          <h5 class="card-title">{{post['title']}}</h5>
-          <p class="card-text">{{post['text']}}</p>
-          <a href= "{{ url_for('post', post_id=post['id']) }}" class="card-link">Ga naar de post</a>
+    {% set paginationController = ['1'] %}
+
+    <div class="pagination-wrapper 1">
+
+    {% for post in posts %}
+      <div class="post">
+        <div class="upper bg-dark">
+          <div class="left">
+            <a href= "{{ url_for('post', post_id=post['id']) }}"><h5>{{post['title']}}</h5></a>
+            <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a></span></p>
+          </div>
+          <div class="right">
+            <p>{{ post['created_on'] }}</p>
+          </div>
         </div>
-    </div>
->>>>>>> 09d4efe045e2d0b294b66925f585aa3d0405fb6e
+        <div class="post-content">{{post['text']|safe}}</div>
+      </div>
+
+      {% if loop.index % 5 == 0 %}
+
+        </div>
+
+        {% set paginationController = (paginationController.append(loop.index),paginationController) %}
+
+        <div class="{{ loop.index }} pagination-wrapper none">
+
+      {% elif loop.last %}
+
+        </div>
+
+      {% endif %}
+
+    {% endfor %}
+
+    {% include 'pagination.html' %}
+
   </div>
 
-{% endfor %}
+  <div class="col-sm-4">
+
+      <h6>Favorieten</h6>
+
+      <table class="table">
+        <tr class="table-active">
+          <th>Telefoon</th>
+          <th>Score</th>
+          <Th>Link</Th>
+        </tr>
+
+        {% for phone in popular %}
+
+        <tr class="table-secondary">
+          <td>{{ phone[0] }}</td>
+          <td>{{ phone[1] }}</td>
+          <td> <a class="focus" href="{{ url_for('display', phone=phone[0]) }}" class="card-link">Bekijk specificaties</a></td>
+        </tr>
+        {% endfor %}
+      </table>
+
+      <p class="note"><span class="focus">*</span> Score is gelijk aan het aantal keer dat de telefoon is toegevoegd aan favorieten.</p>
+
+  </div>
+
 </div>
 
-<h3> Populairste telefoons</h3>
-<div class="column">
-
-
-    <table class="table">
-      <tr class="table-active">
-        <th>Telefoon</th>
-        <th>Score</th>
-        <Th>Link</Th>
-      </tr>
-
-      {% for phone in popular %}
-
-      <tr class="table-secondary">
-        <td>{{ phone[0] }}</td>
-        <td>{{ phone[1] }}</td>
-        <td> <a href="{{ url_for('display', phone=phone[0]) }}" class="card-link">Bekijk specificaties</a></td>
-      </tr>
-      {% endfor %}
-    </table>
-    <p>Score is gelijk aan het aantal keer dat de telefoon is toegevoegd aan favorieten</p>
-
-</div>
 {% endblock %}

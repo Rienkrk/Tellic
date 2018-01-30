@@ -1,0 +1,37 @@
+{% if paginationController|length > 1 %}
+
+  <div>
+
+    <ul class="pagination pagination-sm">
+
+     <li class="page-item">
+      <a class="nav-link page-link" id="1">&laquo;</a>
+     </li>
+
+      {% for page in paginationController %}
+
+        {% if loop.index == 1 %}
+
+          <li class="page-item">
+            <a class="nav-link page-link focus-bg" id="{{page}}">{{loop.index}}</a>
+          </li>
+
+          {% else %}
+
+          <li class="page-item">
+            <a class="nav-link page-link" id="{{page}}">{{loop.index}}</a>
+          </li>
+
+        {% endif %}
+
+      {% endfor %}
+
+      <li class="page-item">
+        <a class="nav-link page-link" id="{{ paginationController|length*5-5 }}">&raquo;</a>
+      </li>
+
+    </ul>
+
+  </div>
+
+{% endif %}

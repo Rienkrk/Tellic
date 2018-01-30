@@ -4,9 +4,6 @@ from api import *
 import json
 from sqlalchemy import desc
 from collections import Counter
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
-from flask_wtf import FlaskForm
-from wtforms.validators import DataRequired
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
@@ -183,7 +180,10 @@ def favorite():
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
     return redirect("display/" + phone)
+<<<<<<< HEAD
 
+=======
+>>>>>>> fd8fedfe4149d5eaa8f1fd570d955f5bd89bdd8a
 
 @app.route("/browse", methods=['GET', 'POST'])
 def browse():
@@ -280,4 +280,7 @@ def browse():
     else:
 
         return render_template("browse.html")
+<<<<<<< HEAD
 
+=======
+>>>>>>> fd8fedfe4149d5eaa8f1fd570d955f5bd89bdd8a

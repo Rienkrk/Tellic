@@ -1,6 +1,35 @@
-.h1 {
-    font-size: 36px;
+main {
+  padding: 40px 60px;
 }
-.p {
-    margin-left: 15px;
+
+.row {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+table {
+  background: white !important;
+  border-collapse: collapse;
+  padding: 5px;
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+table tr:first-child {
+  width: 300px !important;
+  color: white;
+}
+
+td {
+  padding: 15px !important;
+}
+
+td:first-child {
+  width: 200px;
+}
+
+h6 {
+  margin-bottom: 30px;
 }

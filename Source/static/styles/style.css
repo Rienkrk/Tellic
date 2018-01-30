@@ -1,5 +1,25 @@
 body {
-  background: #e9ecef !important; 
+  background: #e9ecef !important;
+  padding-bottom: 50px;
+}
+
+main {
+  max-width: 1800px !important;
+  margin: 0 auto !important;
+}
+
+.none {
+  display: none;
+}
+
+.pagination {
+  margin: 30px auto 0 auto !important;
+  display: block;
+}
+
+.focus-bg {
+  background: #4BBF73 !important;
+  color: white !important;
 }
 
 .reset {
@@ -31,4 +51,10 @@ body {
   position: absolute;
   right: 240px;
   margin-top: 297px;
+}
+
+.ab-button {
+  background: #4BBF73;
+  color: white;
+  border-radius: 5px !important;
 }

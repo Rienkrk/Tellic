@@ -1,5 +1,17 @@
-.form-control {
+main form {
     max-width: 800px;
     margin: auto;
     padding: 15px;
+    margin-top: 50px;
+}
+
+main form input {
+  background: white !important;
+  border: 0px solid white !important;
+  margin-bottom: 30px;
+  border-radius: 5px !important;
+}
+
+.btn {
+  margin-top: 30px;
 }
