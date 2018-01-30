@@ -21,10 +21,6 @@
     <form class="search-form form-inline my-2 my-lg-0 nav-item">
       <input class="form-control mr-sm-2" type="text" name="fname" id="fname" onkeyup="myFunction(this.value, 'navigation')" placeholder="Search">
     </form>
-    <div class="search-drop">
-      <ul class="list-group">
-      </ul>
-    </div>
     {% if current_user.is_authenticated %}
 
       <ul class="nav navbar-nav navbar-right">
@@ -44,3 +40,5 @@
   </div>
 
 </nav>
+<div class="search-drop">
+</div>

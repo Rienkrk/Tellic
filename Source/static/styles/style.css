@@ -40,17 +40,43 @@ main {
 
 .navbar {
   position: relative !important;
-  background: orange !important;
+  padding-bottom: 0px !important;
 }
 
 .search-drop {
-  height: auto;
-  width: 400px;
-  height: 500px;
-  overflow-y: auto;
-  position: absolute;
-  right: 240px;
-  margin-top: 297px;
+  width: 100%;
+  background: #343a40;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding: 0.75rem 10px 0.75rem 10px;
+}
+
+.search-drop a:-webkit-any-link {
+    text-decoration: none;
+}
+
+.search-drop span {
+  display: block;
+  padding: 3px 10px;
+  margin: 7px;
+  background: white;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.search-drop .error {
+  background: #d9534f;
+  color: white;
+}
+
+.search-drop span:hover {
+  background: #4BBF73;
+  /* color: #343a40; */
+  color: white;
 }
 
 .ab-button {
