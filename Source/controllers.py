@@ -8,10 +8,10 @@ from collections import Counter
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-	var = request.args['searchText']
-	phones = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5').getdevice(var)
+    var = request.args['searchText']
+    phones = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5').getdevice(var)
 
-	return json.dumps({'phones':phones});
+    return json.dumps({'phones':phones});
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -111,7 +111,7 @@ def index():
     # Get posts from database, most recent first.
     posts = Post.query.order_by(desc(Post.created_on)).all()
 
-    # Get the 3 most popular phones.
+    # Get the 3 most popular phones.tabs-to-spaces:untabify-all
     phones = Favorite.query.all()
     popular = Counter([phone.phone for phone in phones]).most_common(3)
 
@@ -122,38 +122,39 @@ def index():
 @login_required
 def profiel(username):
 
-	userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
-	replies = Reply.query.filter_by(user_id=userInstance[0]).all()
-	posts = Post.query.filter_by(user_id=userInstance[0]).all()
-	favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
-	return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
-	# return userInstance
+    userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
+    replies = Reply.query.filter_by(user_id=userInstance[0]).all()
+    posts = Post.query.filter_by(user_id=userInstance[0]).all()
+    favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
+    return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
+    # return userInstance
 
 @app.route("/display/<phone>")
 def display(phone):
+    headers = {'User-Agent': 'My User Agent 1.0', 'From': 'youremail@domain.com'}
+    url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
+    data = requests.get(url, headers=headers).json()
+    data = data['data']['result']['items'][0]['media']
     # Uses the token to get into the API.
-    # fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
     # Get all the information about a specific phone and return to the html file.
-    # phone = fon.getdevice(phone)
-    # return render_template("display.html", phone=phone)
-	url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
-	test = requests.get(url).json()
-	return test
+    phone = fon.getdevice(phone)
+    return render_template("display.html", phone=phone, data=data)
 
 @app.route("/reply", methods=['GET', 'POST'])
 def reply():
-	# Get written reply via POST.
-	reply = request.form.get("reply")
-	post_id = request.form.get("post_id")
-	phone = request.form.get("phone")
+    # Get written reply via POST.
+    reply = request.form.get("reply")
+    post_id = request.form.get("post_id")
+    phone = request.form.get("phone")
 
-	# Add post to database.
-	newReply = Reply(current_user.id, post_id, reply, phone)
-	db.session.add(newReply)
-	db.session.commit()
+    # Add post to database.
+    newReply = Reply(current_user.id, post_id, reply, phone)
+    db.session.add(newReply)
+    db.session.commit()
 
-	flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
-	return redirect("post/" + post_id)
+    flash('U heeft uw reply succesvol aangemaakt!', 'alert-success')
+    return redirect("post/" + post_id)
 
 @app.route("/post/<post_id>")
 def post(post_id):
