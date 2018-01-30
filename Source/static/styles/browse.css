@@ -1,0 +1,29 @@
+main {
+  padding: 40px 60px;
+}
+
+.row {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+}
+
+.row h5 {
+  margin-bottom: 20px;
+  color: white;
+}
+
+.focus {
+    margin-left: 10px;
+}
+
+.upper {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+}
