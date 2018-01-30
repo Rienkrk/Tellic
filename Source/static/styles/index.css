@@ -1,23 +1,81 @@
-.h1 {
-    padding: 15px;
-}
-.h3 {
-    padding: 15px;
-}
-.card-link {
-    color: blue;
+main {
+  padding: 40px 60px;
 }
 
-.posts {
-    max-width: 35rem;
+.row {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
 }
 
-.favorites {
-    margin-left: 700px;
+.row h6 {
+  margin-bottom: 40px;
 }
 
-.column {
-    float: left;
-    width: 50%;
-    padding: 15px;
+.col-sm-8 {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.post {
+  background: white;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.post p {
+  margin-bottom: 0px;
+}
+
+.post-content {
+  padding: 20px;
+}
+
+.upper {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.left {
+  display: flex;
+  align-items: flex-end;
+}
+
+.upper p {
+  display: block;
+  margin: 0 0 0 20px;
+}
+
+.focus {
+  color: #4BBF73;
+}
+
+.upper h5 {
+  margin-bottom: 0px;
+  color: white;
+}
+
+.table-active {
+  background: #343a40;
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  padding: 5px;
+  border-radius: 1em;
+  overflow: hidden;
+}
+
+.note {
+  font-size: 12px;
 }
