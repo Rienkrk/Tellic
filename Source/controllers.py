@@ -5,7 +5,7 @@ import requests
 import json
 from sqlalchemy import desc
 from collections import Counter
-from helpers import phone_filter
+from helpers import *
 
 @app.route("/search", methods=['GET', 'POST'])
 def search():
@@ -151,27 +151,26 @@ def index():
 def profiel(username):
 
     userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
-	replies = Reply.query.filter_by(user_id=userInstance[0]).all()
-	posts = Post.query.filter_by(user_id=userInstance[0]).all()
-	favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
-	return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
-	# return userInstance
+    replies = Reply.query.filter_by(user_id=userInstance[0]).all()
+    posts = Post.query.filter_by(user_id=userInstance[0]).all()
+    favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
+    return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
+    # return userInstance
 
 @app.route("/display/<phone>")
 def display(phone):
     # Uses the token to get into the API.
-<<<<<<< HEAD
+
     fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
 
-=======
     # fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
->>>>>>> f7252ac983dcd4bb4086a31b33b5eae859366215
+
     # Get all the information about a specific phone and return to the html file.
     # phone = fon.getdevice(phone)
     # return render_template("display.html", phone=phone)
-	url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
-	test = requests.get(url).json()
-	return test
+    url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
+    test = requests.get(url).json()
+    return test
 
 @app.route("/reply", methods=['GET', 'POST'])
 def reply():
@@ -181,10 +180,9 @@ def reply():
 	phone = request.form.get("phone")
 
     # Make sure the reply is not longer than 1000 characters.
-	if len(reply) > 1000:
-	    flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
+    if len(reply) > 1000:
+        flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
         return redirect(url_for("post"))
-
     else:
 	    # Add post to database.
 	    newReply = Reply(current_user.id, post_id, reply, phone)
@@ -223,9 +221,9 @@ def favorite():
 
     else:
         flash('Deze telefoon staat al in uw favorieten', 'alert-warning')
-<<<<<<< HEAD
+
         return redirect("display/" + phone)
-=======
+
     return redirect("display/" + phone)
 
 
@@ -268,12 +266,8 @@ def browse():
 
     else:
 
-<<<<<<< HEAD
         # By default, show latest 100 phones.
         phones = fon.getlatest(100)
         return render_template("browse.html", phones=phones)
 
-=======
-        return render_template("browse.html")
->>>>>>> f7252ac983dcd4bb4086a31b33b5eae859366215
->>>>>>> 44b3383d7c33ce6c16f5cc83be64c1257f3ae9ec
+
