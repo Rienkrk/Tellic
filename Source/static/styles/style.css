@@ -8,6 +8,10 @@ main {
   margin: 0 auto !important;
 }
 
+.none {
+  display: none;
+}
+
 .pagination {
   margin: 30px auto 0 auto !important;
   display: block;

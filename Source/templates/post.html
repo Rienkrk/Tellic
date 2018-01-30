@@ -34,7 +34,7 @@
       <input id="phoneInput" type="hidden" name="phone"/>
       <textarea class="form-control" id="mytextarea" name="reply" rows="6" placeholder="Schrijf hier uw antwoord!"></textarea>
       <div class="form-combine">
-        <button class="btn ab-button" type="submit">Plaats een opmerking</button>
+        <button class="btn ab-button" type="submit">Plaats uw opmerking</button>
         <input class="form-control mr-sm-2" type="text" onkeyup="myFunction(this.value, 'createReply')" placeholder="Search">
         <div class="selected">Geselecteerd: <span class="focus selected-phone">Geen</span></div>
       </div>
@@ -98,43 +98,7 @@
 
   {% endfor %}
 
-  {% if paginationController|length > 1 %}
-
-    <div>
-
-      <ul class="pagination pagination-sm">
-
-       <li class="page-item">
-        <a class="nav-link page-link" id="1">&laquo;</a>
-       </li>
-
-        {% for page in paginationController %}
-
-          {% if loop.index == 1 %}
-
-            <li class="page-item">
-              <a class="nav-link page-link focus-bg" id="{{page}}">{{loop.index}}</a>
-            </li>
-
-            {% else %}
-
-            <li class="page-item">
-              <a class="nav-link page-link" id="{{page}}">{{loop.index}}</a>
-            </li>
-
-          {% endif %}
-
-        {% endfor %}
-
-        <li class="page-item">
-          <a class="nav-link page-link" id="{{ paginationController|length*5-5 }}">&raquo;</a>
-        </li>
-
-      </ul>
-
-    </div>
-
-  {% endif %}
+  {% include 'pagination.html' %}
 
 </div>
 
