@@ -20,21 +20,24 @@
     <div class="filter">
 
       <form action="{{ url_for('browse') }}" method="post">
+
       <h6>Merk</h6>
       <div class="form-group">
         <label class="col-form-label col-form-label-sm" for="inputSmall">Merk</label>
         <input class="form-control form-control-sm" name= "brand" type="text" placeholder="Merk" id="inputSmall">
       </div>
-      <h6>Grootte</h6>
+
+      <h6>Scherm grootte</h6>
       <div class="form-group">
         <label class="col-form-label col-form-label-sm" for="inputSmall">Minimale grootte</label>
-        <input class="form-control form-control-sm" type="text" name="minSize" placeholder="Minimale grootte" id="inputSmall">
+        <input class="form-control form-control-sm" type="text" name="minSize" placeholder="Minimale grootte in inches" id="inputSmall">
       </div>
 
       <div class="form-group">
         <label class="col-form-label col-form-label-sm" for="inputSmall">Maximale grootte</label>
-        <input class="form-control form-control-sm" name="maxSize" type="text" placeholder="Maximale grootte" id="inputSmall">
+        <input class="form-control form-control-sm" name="maxSize" type="text" placeholder="Maximale grootte in inches" id="inputSmall">
       </div>
+
       <h6>Operating system</h6>
       <div class="form-check">
           <label class="form-check-label">
@@ -60,6 +63,34 @@
           <label class="form-check-label">
             <input type="radio" class="form-check-input" name="camera" value="normal">
                 Normale front camera
+          </label>
+      </div>
+
+      <h6>Multitouch</h6>
+      <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="multitouch" value="True">
+                Yes
+          </label>
+      </div>
+      <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="multitouch" value="False">
+                No
+          </label>
+      </div>
+
+      <h6>NFC</h6>
+      <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="NFC" value="True">
+                Yes
+          </label>
+      </div>
+      <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="NFC" value="False">
+                No
           </label>
       </div>
 
@@ -113,6 +144,7 @@
       </form>
     </div>
   </div>
+
  <div class="col-sm-8">
     <div class="upper bg-dark">
       <h5>Resultaten</h5>
@@ -129,5 +161,4 @@
     </div>
   </div>
 </div>
-
 {% endblock %}
