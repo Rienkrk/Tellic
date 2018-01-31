@@ -23,7 +23,7 @@ function myFunction(value, redirectedFrom) {
 
 					// Check if there are results if not, return a error message else show results.
 					if(response.phones == "No Matching Results Found.") {
-						var html = "<li class='list-group-item d-flex justify-content-between align-items-center'> Geen resultaat gevonden! </li></a>"
+						var html = "<span class='error'>Geen resultaten gevonden!</span>"
 
 						// Check from which page the message came and display the results accordingly.
 						if(redirectedFrom == "createReply") {
@@ -50,7 +50,7 @@ function myFunction(value, redirectedFrom) {
 									$(".results").prepend(html);
 								}
 								else {
-									var html = "<a href=\"/display/"+phone+"\"><li class='list-group-item d-flex justify-content-between align-items-center'>" + phone + "<span class='badge badge-primary badge-pill'>" + brand + "</span></li></a>"
+									var html = "<a href=\"/display/"+phone+"\"><span>" + phone + "</span></a>"
 									$(".search-drop").prepend(html);
 								};
 
@@ -64,8 +64,7 @@ function myFunction(value, redirectedFrom) {
 
 			// If the response was not succesfull return the message that something went wrong.
       error: function(error) {
-				var html = "<li class='list-group-item d-flex justify-content-between align-items-center'>Oops! Er ging iets mis.</li></a>"
-
+				var html = "<span class='error'>Er ging iets goed mis!</span>"
 				// Check from which page the message came and display the results accordingly.
 				if(redirectedFrom == "createReply") {
 					$(".results").prepend(html);

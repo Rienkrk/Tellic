@@ -31,3 +31,12 @@
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+input {
+  border: 0px !important;
+  margin-bottom: 5px;
+}
+
+button {
+  margin-top: 10px;
+}
