@@ -35,6 +35,8 @@
     <li> Telefoons die het meest aan favorieten zijn toegevoegd </li>
   </ul>
   </li>
+  <li>Alle input wordt gecheckt</li>
+  <li>Wachtwoorden worden gesalt en gehasht</li>
 </ul>
 
 <h2> Verdeling van werk </h2>
