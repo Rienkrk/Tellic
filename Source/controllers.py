@@ -119,6 +119,15 @@ def createPost():
         title = request.form.get("title")
         post = request.form.get("post")
 
+        # Make sure the post has a title and has content.
+        if not title:
+            flash("Uw post moet een titel hebben!", 'alert-warning')
+            return render_template("createPost.html", title=title, post=post)
+
+        if len(post) == 0:
+            flash("Uw post moet inhoud hebben!", 'alert-warning')
+            return render_template("createPost.html", title=title, post=post)
+
         # Make sure the title and post have a cap.
         if len(post) > 1500:
             flash("Uw post mag maximaal uit 1500 tekens bestaan!", 'alert-warning')
