@@ -210,7 +210,6 @@ def favorite():
     phone = request.form.get('phone')
     if not Favorite.query.filter_by(user_id=current_user.id, phone=phone).first():
 
-
         # Add favorite to database.
         addFavorite = Favorite(current_user.id, phone)
         db.session.add(addFavorite)
