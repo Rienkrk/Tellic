@@ -7,13 +7,10 @@ from sqlalchemy import desc
 from collections import Counter
 from helpers import *
 
-# Initialize API.
-fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
-
 @app.route("/search", methods=['GET', 'POST'])
 def search():
 	var = request.args['searchText']
-	phones = fon.getdevice(var)
+	phones = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5').getdevice(var)
 
 	return json.dumps({'phones':phones});
 
@@ -159,15 +156,19 @@ def profiel(username):
     posts = Post.query.filter_by(user_id=userInstance[0]).all()
     favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
     return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
+    # return userInstance
 
 @app.route("/display/<phone>")
 def display(phone):
 
-    # Get image from Qwant API
-    image = Qwant.get_image(phone)
-    # Get specifications from fonAPI
-    phone = fon.getdevice(phone)
-    return render_template("display.html", phone=phone, image=image)
+	headers = {'User-Agent': 'My User Agent 1.0', 'From': 'youremail@domain.com'}
+	url = "https://api.qwant.com/api/search/images?count=10&offset=1&q="+phone
+	data = requests.get(url, headers=headers).json()
+	data = data['data']['result']['items'][0]['media']
+	 # Uses the token to get into the API.
+	fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
+	phone = fon.getdevice(phone)
+	return render_template("display.html", phone=phone, data=data)
 
 
 @app.route("/reply", methods=['GET', 'POST'])
@@ -178,6 +179,7 @@ def reply():
 	phone = request.form.get("phone")
 
     # Make sure the reply is not longer than 1000 characters.
+
 	if len(reply) > 1000:
 	    flash("Uw antwoord mag maximaal uit 1000 tekens bestaan!", 'alert-warning')
 	    return redirect("reply")
@@ -226,6 +228,8 @@ def favorite():
 
 @app.route("/browse", methods=['GET', 'POST'])
 def browse():
+    # Uses the token to get into the API.
+    fon = FonApi('3618ac67ea1695322d52be3bca323ac4eb29caca9570dbe5')
 
     if request.method == 'POST':
 
@@ -265,14 +269,4 @@ def browse():
         phones = fon.getlatest(100)
         return render_template("browse.html", phones=phones)
 
-@app.route("/delete", methods=['GET', 'POST'])
-def delete():
-
-    post = request.form.get('post')
-    text = request.form.get('text')
-
-    # Remove the post from the database.
-    delPost = Post(current_user.id, post, text)
-    db.session.delete(delPost)
-    db.session.commit()
 

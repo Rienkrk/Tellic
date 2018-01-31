@@ -74,7 +74,12 @@
     {% endfor %}
 
 
-
+  <div>
+    <form action="{{ url_for('delete') }}" method="post">
+      <input type="hidden" name="post" value="{{ post }}"/>
+      <button class="ab-button btn" type="submit">Verwijder deze post</button>
+    </form>
+  </div>
 
   </div>
 
