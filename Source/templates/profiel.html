@@ -33,9 +33,9 @@
             <div class="profile-overview">
               <h6>{{ post["title"] }}</h6>
               {{ post["text"]|safe }}
-              <br>
-              <br>
               <span class="date">{{ post["created_on"] }}</span>
+              <br>
+              <br>
               {% if post["user_id"] == current_user.id %}
               <div>
                 <form action="{{ url_for('delete') }}" method="post">
