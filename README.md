@@ -9,6 +9,9 @@
   <li>Inloggen</li>
   <li>Uitloggen</li>
   <li>Telefoons opzoeken en specificaties + afbeelding ervan bekijken</li>
+    <ul>
+      <li> Met behulp van twee verschillende API's</li>
+    </ul>
   <li>Telefoons filteren op basis van een aantal specificaties</li>
   <li>Telefoon toevoegen aan favorieten</li>
   <li>Post schrijven + opmaken</li>
