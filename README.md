@@ -4,8 +4,8 @@
 <p>IK15</p>
 <p>Tellic is een aanbeveel/zoek platform voor mobiele telefoons.</p>
 <h2> Screenshots</h2>
-<img src="https://i.imgur.com/otmxWY1.png" width="350"/>
-
+<img src="https://i.imgur.com/otmxWY1.png" width="600"/>
+<br>
 <h2>Features</h2>
 <ul>
   <li>Registreren</li>
