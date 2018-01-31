@@ -276,13 +276,16 @@ def browse():
         return render_template("browse.html", phones=phones)
 
 @app.route("/delete", methods=['GET', 'POST'])
+@login_required
 def delete():
+    if request.method == 'POST':
+        post_id = request.form.get('post_id')
 
-    post = request.form.get('post')
-    text = request.form.get('text')
+        # Remove the post from the database.
+        delete = Post.query.filter_by(id=post_id).delete()
 
-    # Remove the post from the database.
-    delPost = Post(current_user.id, post, text)
-    db.session.delete(delPost)
-    db.session.commit()
+        # Remove the replies on particular post
+        delete_replies = Reply.query.filter_by(post_id=post_id).delete()
+        db.session.commit()
 
+        return redirect("profiel/" + current_user.username)
