@@ -60,7 +60,7 @@ a:-webkit-any-link {
 }
 
 .tab-pane {
-  height: 500px;
+  max-height: 500px;
   overflow-y: scroll;
 }
 
@@ -107,4 +107,22 @@ h6 {
 
 .active {
   color: #4BBF73 !important;
+}
+
+.top-pane {
+  width: 100%;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dv-button {
+  background: #d9534f;
+  font-size: 12px;
+  padding: 5px 6px;
+  color: white;
+  border-radius: 5px;
+  text-transform: none;
 }

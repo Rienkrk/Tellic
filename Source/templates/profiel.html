@@ -31,19 +31,21 @@
         {% for post in posts %}
         <a href="{{ url_for('post', post_id=post['id']) }}">
             <div class="profile-overview">
-              <h6>{{ post["title"] }}</h6>
+              <div class="top-pane">
+                <h6>{{ post["title"] }}</h6>
+                {% if post["user_id"] == current_user.id %}
+                <div>
+                  <form action="{{ url_for('delete') }}" method="post">
+                    <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
+                    <button class="dv-button btn" type="submit">Verwijder deze post</button>
+                  </form>
+                </div>
+                {% endif %}
+              </div>
               {{ post["text"]|safe }}
               <span class="date">{{ post["created_on"] }}</span>
               <br>
               <br>
-              {% if post["user_id"] == current_user.id %}
-              <div>
-                <form action="{{ url_for('delete') }}" method="post">
-                  <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
-                  <button class="ab-button btn" type="submit">Verwijder deze post</button>
-                </form>
-              </div>
-              {% endif %}
             </div>
           </a>
         {% endfor %}

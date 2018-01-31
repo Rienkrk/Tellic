@@ -12,11 +12,9 @@
 {% endblock %}
 
 {% block main %}
-<div class="header">
-    <h2>Stel hier uw vraag aan de Tellic community</h2>
-</div>
   <div>
     <form action="{{ url_for('createPost') }}" method="post">
+        <h6>Vraag hier uw advies aan de community.</h6>
         <input class="form-control form-control-sm" value="{{ title }}" type="text" name ="title" placeholder="Titel (maximaal 100 tekens)" id="inputSmall">
         <textarea id="mytextarea" name="post" rows="10" placeholder="Schrijf hier uw bericht (maximaal 1500 tekens)"></textarea>
         <button class="ab-button btn" type="submit">Plaats uw post!</button>
