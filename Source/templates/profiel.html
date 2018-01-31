@@ -12,66 +12,94 @@
 
 {% block main %}
 
-<div class="jumbotron">
-
-<h2>Profiel van {{ current_user.username }}</h2>
+<!-- <h2>Profiel van {{ current_user.username }}</h2> -->
 
 <div class="row">
 
   <div class="col-sm-8">
 
-    <h4>Laatste activiteiten</h4>
-
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-header bg-dark">
       <li class="nav-item">
-        <a class="nav-link active show" data-toggle="tab" href="#posts">Posts</a>
+        <a class="active show" data-toggle="tab" href="#posts">Posts</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="tab" href="#replies">Replies</a>
+        <a data-toggle="tab" href="#replies">Replies</a>
       </li>
     </ul>
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane fade active show" id="posts">
         {% for post in posts %}
-
-          <a href="{{ url_for('post', post_id=post['id']) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ post["title"] }}</h5>
-              <small class="text-muted">{{ post["created_on"] }}</small>
+        <a href="{{ url_for('post', post_id=post['id']) }}">
+            <div class="profile-overview">
+              <h6>{{ post["title"] }}</h6>
+              {{ post["text"]|safe }}
+              <br>
+              <br>
+              <span class="date">{{ post["created_on"] }}</span>
             </div>
-            <p class="mb-1">{{ post["text"] }}</p>
           </a>
-
         {% endfor %}
       </div>
       <div class="tab-pane fade" id="replies">
         {% for reply in replies %}
-          <a href="{{ url_for('post', post_id=reply.post['id']) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ reply.user['username'] }}</h5>
-              <small class="text-muted">{{ reply['created_on'] }}</small>
-            </div>
-            <p class="mb-1">{{ reply['text'] }}</p>
-          </a>
+          <div class="profile-overview">
+            <a href="{{ url_for('post', post_id=reply.post['id']) }}">
+                <h6>Gepost door <span class="focus">{{ reply.user['username'] }}</span></h6>
+                {{ reply['text']|safe }}
+                <br>
+                <br>
 
+                {% if reply["phone"] == "" %}
+                  <span class="phone">Geen aanbeveling</span>
+                {% else %}
+                  <span class="phone">{{ reply["phone"] }}</span>
+                {% endif %}
+
+                <br>
+                <br>
+                <span class="date">{{ reply["created_on"] }}</span>
+            </a>
+          </div>
         {% endfor %}
       </div>
+      <div class="bottom"></div>
     </div>
 
     </div>
 
   <div class="col-sm-4">
 
-  <h4>Favorieten</h4>
-  {% for favorite in favorites %}
-    <div class="tab-pane fade active show" id="favorites">
-        <a href="{{ url_for('display', phone=favorite['phone']) }}" class="list-group-item list-group-item-action flex-column align-items-start">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{ favorite['phone'] }}</h5>
-          </div>
-        </a>
-    </div>
-    {% endfor %}
+  {% set paginationController = ['1'] %}
+
+  <div class="pagination-wrapper 1">
+    <ul class="favorites">
+      <li class="bg-dark">Favorieten</li>
+
+    {% for favorite in favorites %}
+      <li><a href="{{ url_for('display', phone=favorite['phone']) }}">{{ favorite['phone'] }}</a></li>
+
+    {% if loop.index % 5 == 0 %}
+
+      </div>
+      </ul>
+
+      {% set paginationController = (paginationController.append(loop.index),paginationController) %}
+
+      <div class="{{ loop.index }} pagination-wrapper none">
+        <ul class="favorites">
+          <li class="bg-dark">Favorieten</li>
+
+    {% elif loop.last %}
+
+      </div>
+      </ul>
+
+    {% endif %}
+
+  {% endfor %}
+
+
+  {% include 'pagination.html' %}
 
 
   <div>

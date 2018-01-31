@@ -89,6 +89,14 @@
         <td>Connectie:</td>
         <td>{{ phone[0]['speed'] }}</td>
       </tr>
+      <tr>
+        <td>Aangekondigd:</td>
+        <td>{{ phone[0]['announced'] }}</td>
+      </tr>
+      <tr>
+        <td>Prijs:</td>
+        <td>{{ phone[0]['price'] }}</td>
+      </tr>
     </table>
 
   </div>
@@ -97,12 +105,16 @@
 
     <img src="{{ image }}" alt="phone">
 
-    <h6>Vindt u dit een mooie telefoon?</h6>
+    {% if current_user.is_authenticated %}
 
-    <form action="{{ url_for('favorite') }}" method="post">
-      <input type="hidden" name="phone" value="{{ phone[0]['DeviceName'] }}"/>
-      <button class="ab-button btn" type="submit">Voeg toe aan favorieten</button>
-    </form>
+      <h6>Vindt u dit een mooie telefoon?</h6>
+
+      <form action="{{ url_for('favorite') }}" method="post">
+        <input type="hidden" name="phone" value="{{ phone[0]['DeviceName'] }}"/>
+        <button class="ab-button btn" type="submit">Voeg toe aan favorieten</button>
+      </form>
+
+    {% endif %}
 
   </div>
 

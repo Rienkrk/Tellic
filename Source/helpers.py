@@ -1,4 +1,4 @@
-def phone_filter(phones, minSize, maxSize, OS, camera, SIM, year):
+def phone_filter(phones, minSize, maxSize, OS, camera, SIM, multitouch, NFC, year):
 
     # Filter by size.
     if minSize and maxSize:
@@ -7,7 +7,7 @@ def phone_filter(phones, minSize, maxSize, OS, camera, SIM, year):
 
     # Filter by Operating System.
     if OS == 'iOS':
-        phones = [phone for phone in phones if 'os' in phone and phone['os'][:3]=='iOS']
+        phones = [phone for phone in phones if 'os' in phone and phone['os'][:3]=='iOS' and phone['os'][:5]!='watch']
     elif OS == 'Android':
         phones = [phone for phone in phones if 'os' in phone and phone['os'][:7]=='Android']
 
@@ -24,6 +24,18 @@ def phone_filter(phones, minSize, maxSize, OS, camera, SIM, year):
         phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:4]=='Dual']
     elif SIM == 'Hybrid':
         phones = [phone for phone in phones if 'sim' in phone and phone['sim'][:6]=='Hybrid']
+
+    # Filter by Multitouch.
+    if multitouch == 'True':
+        phones = [phone for phone in phones if 'multitouch' in phone and phone['multitouch'][:3]=='Yes']
+    elif multitouch == 'False':
+        phones = [phone for phone in phones if 'multitouch' not in phone or phone['multitouch'][:2]=='No']
+
+    # Filter by NFC.
+    if NFC == 'True':
+        phones = [phone for phone in phones if 'nfc' in phone and phone['nfc'][:3]=='Yes']
+    elif NFC == 'False':
+        phones = [phone for phone in phones if 'nfc' not in phone or phone['nfc'][:2]=='No']
 
     # Filter by announce year.
     if year:

@@ -210,7 +210,6 @@ def favorite():
     phone = request.form.get('phone')
     if not Favorite.query.filter_by(user_id=current_user.id, phone=phone).first():
 
-
         # Add favorite to database.
         addFavorite = Favorite(current_user.id, phone)
         db.session.add(addFavorite)
@@ -236,6 +235,8 @@ def browse():
         OS = request.form.get('OS')
         camera = request.form.get('camera')
         SIM = request.form.get('SIM')
+        multitouch = request.form.get('multitouch')
+        NFC = request.form.get('NFC')
         year = request.form.get('year')
 
         # If no brand was put in.
@@ -245,17 +246,26 @@ def browse():
             phones = fon.getlatest(100)
 
             # Filter phones according to user input.
-            phones = phone_filter(phones, minSize, maxSize, OS, camera, SIM, year)
+            phones = phone_filter(phones, minSize, maxSize, OS, camera, SIM, multitouch, NFC, year)
+
+            # If phones is empty, no result.
+            if not phones:
+                flash('Geen resultaten gevonden op basis van deze zoekopdracht', 'alert-warning')
 
             return render_template("browse.html", phones=phones)
 
+        # If brand was put in
         else:
 
             # Get the 100 latest phones of a certain brand.
             phones = fon.getlatestBrand(100, brand)
 
             # Filter phones according to user input.
-            phones = phone_filter(phones, minSize, maxSize, OS, camera, SIM, year)
+            phones = phone_filter(phones, minSize, maxSize, OS, camera, SIM, multitouch, NFC, year)
+
+            # If phones is empty, no result.
+            if not phones:
+                flash('Geen resultaten gevonden op basis van deze zoekopdracht', 'alert-warning')
 
             return render_template("browse.html", phones=phones)
 
