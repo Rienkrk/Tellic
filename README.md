@@ -13,7 +13,7 @@
   <li>Telefoon toevoegen aan favorieten</li>
   <li>Post schrijven + opmaken</li>
   <li>Antwoorden op een Post</li>
-  <li>Post verwijderen*</li>
+  <li>Post verwijderen</li>
   <li>Eigen profiel en die van anderen bekijken</li>
 </ul>
 <h2>Wegwijs door de repository</h2>
@@ -21,8 +21,8 @@
   <li>In het mapje 'Source' is alle code te vinden.</li>
   <li>In het bestand 'models.py' staan alle Models</li>
   <li>In het bestand 'controllers.py' staan alle routes</li>
-  <li>in het mapje 'templates' staan alle Views</li>
-  <li>in het mapje 'static/styles' staan .css bestanden</li>
+  <li>in het mapje 'templates' staan alle Views (.html)</li>
+  <li>in het mapje 'static/styles' staan alle .css bestanden</li>
   <li><br /></li>
 </ul>
 <p><br /></p>
