@@ -162,11 +162,14 @@ def index():
 @app.route("/profiel/<username>")
 @login_required
 def profiel(username):
-
+    # Get user.
     userInstance = User.query.with_entities(User.id).filter_by(username=username).first()
-    replies = Reply.query.filter_by(user_id=userInstance[0]).all()
-    posts = Post.query.filter_by(user_id=userInstance[0]).all()
+
+    # Get replies, posts and favorites of user.
+    replies = Reply.query.filter_by(user_id=userInstance[0]).order_by(desc(Reply.created_on)).all()
+    posts = Post.query.filter_by(user_id=userInstance[0]).order_by(desc(Post.created_on)).all()
     favorites = Favorite.query.filter_by(user_id=userInstance[0]).all()
+
     return render_template("profiel.html", posts=posts, replies=replies, favorites=favorites)
 
 @app.route("/display/<phone>")
