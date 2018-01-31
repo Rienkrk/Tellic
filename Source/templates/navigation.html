@@ -7,32 +7,43 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarColor01">
+
     <ul class="navbar-nav mr-auto">
+
       <li class="nav-item active">
         <a class="nav-link" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('createPost') }}">Maak een post</a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('browse') }}">Uitgebreid zoeken</a>
       </li>
+
     </ul>
+
     <form class="search-form form-inline my-2 my-lg-0 nav-item">
       <input class="form-control mr-sm-2" type="text" name="fname" id="fname" onkeyup="myFunction(this.value, 'navigation')" placeholder="Zoek een telefoon">
     </form>
+
     {% if current_user.is_authenticated %}
 
       <ul class="nav navbar-nav navbar-right">
+
         <li class="nav-item"><a class="text-white" href="{{ url_for('profiel', username=current_user.username) }}"></span>Hallo, {{ current_user.username }} </a></li>
         <li class="nav-item"><a class="text-white" href="{{ url_for('logout') }}"></span >Log uit</a></li>
+
       </ul>
 
     {% else %}
 
       <ul class="nav navbar-nav navbar-right">
+
         <li class="nav-item"><a class="text-white" href="{{ url_for('register') }}"></span>Registreer</a></li>
         <li class="nav-item"><a class="text-white" href="{{ url_for('login') }}"></span >Login</a></li>
+        
       </ul>
 
     {% endif %}
@@ -40,5 +51,6 @@
   </div>
 
 </nav>
+
 <div class="search-drop">
 </div>

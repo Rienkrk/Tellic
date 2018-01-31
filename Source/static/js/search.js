@@ -65,6 +65,7 @@ function myFunction(value, redirectedFrom) {
 			// If the response was not succesfull return the message that something went wrong.
       error: function(error) {
 				var html = "<span class='error'>Er ging iets goed mis!</span>"
+				
 				// Check from which page the message came and display the results accordingly.
 				if(redirectedFrom == "createReply") {
 					$(".results").prepend(html);

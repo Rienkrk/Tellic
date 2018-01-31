@@ -6,100 +6,111 @@
 
 {% block includes %}
 
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/post.css') }}">
+  <!-- Link to stylesheet for the login/register page. -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/post.css') }}">
 
 {% endblock %}
 
 {% block main %}
 
-<div class="container">
+  <div class="container">
 
-  <div class="post">
-    <div class="upper bg-dark">
-      <div class="left">
-        <h4>{{post['title']}}</h4>
-        <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a></span></p>
+    <div class="post">
+
+      <div class="upper bg-dark">
+
+        <div class="left">
+          <h4>{{post['title']}}</h4>
+          <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a></span></p>
+        </div>
+
+        <div class="right">
+          <p>{{ post['created_on'] }}</p>
+        </div>
       </div>
-      <div class="right">
-        <p>{{ post['created_on'] }}</p>
-      </div>
+
+      <div class="post-content">{{post['text']|safe}}</div>
+
     </div>
-    <div class="post-content">{{post['text']|safe}}</div>
-  </div>
 
-  {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated %}
 
-  <form class="reply-form" action="{{ url_for('reply') }}" method="post">
-      <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
-      <input id="phoneInput" type="hidden" name="phone"/>
-      <textarea class="form-control" id="mytextarea" value = "{{ reply }}" name="reply" rows="6" placeholder="Schrijf hier uw antwoord! (maximaal 1000 tekens)"></textarea>
-      <div class="form-combine">
-        <button class="btn ab-button" type="submit">Plaats uw opmerking</button>
-        <input class="form-control mr-sm-2" type="text" onkeyup="myFunction(this.value, 'createReply')" placeholder="Search">
-        <div class="selected">Geselecteerd: <span class="focus selected-phone">Geen</span></div>
-      </div>
-
-      <div class="results">
-      </div>
-  </form>
-
-  <script type="text/javascript">
-    var editor = textboxio.replace('#mytextarea');
-  </script>
-
-  {% endif %}
-
-  {% set paginationController = ['1'] %}
-
-  <div class="pagination-wrapper 1">
-
-  {% for reply in replies %}
-
-      <div class="reply-wrapper">
-
-        <div class="reply">
-          <div class="content">{{ reply['text']|safe }}</div>
-          <div class="lower bg-dark">
-            <div class="left">
-              <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=reply.user['username']) }}">{{ reply.user['username'] }}</a></span></p>
-            </div>
-            <div class="right">
-              <p>{{ reply['created_on'] }}</p>
-            </div>
-          </div>
+    <form class="reply-form" action="{{ url_for('reply') }}" method="post">
+        <input type="hidden" name="post_id" value="{{ post["id"] }}"/>
+        <input id="phoneInput" type="hidden" name="phone"/>
+        <textarea class="form-control" id="mytextarea" value = "{{ reply }}" name="reply" rows="6" placeholder="Schrijf hier uw antwoord! (maximaal 1000 tekens)"></textarea>
+        <div class="form-combine">
+          <button class="btn ab-button" type="submit">Plaats uw opmerking</button>
+          <input class="form-control mr-sm-2" type="text" onkeyup="myFunction(this.value, 'createReply')" placeholder="Search">
+          <div class="selected">Geselecteerd: <span class="focus selected-phone">Geen</span></div>
         </div>
-
-        <div class="recomendation">
-
-          <h6>Aanbeveling</h6>
-          {% if reply['phone'] != "" %}
-            <span><a href="{{ url_for('display', phone=reply['phone']) }}"{{ reply['phone'] }}>{{reply['phone']}}</a></span>
-          {% else %}
-            <span>Geen</span>
-          {% endif %}
-
+        <div class="results">
         </div>
+    </form>
 
-      </div>
-
-    {% if loop.index % 5 == 0 %}
-
-      </div>
-
-      {% set paginationController = (paginationController.append(loop.index),paginationController) %}
-
-      <div class="{{ loop.index }} pagination-wrapper none">
-
-    {% elif loop.last %}
-
-      </div>
+    <script type="text/javascript">
+      var editor = textboxio.replace('#mytextarea');
+    </script>
 
     {% endif %}
 
-  {% endfor %}
+    {% set paginationController = ['1'] %}
 
-  {% include 'pagination.html' %}
+    <div class="pagination-wrapper 1">
 
-</div>
+    {% for reply in replies %}
+
+        <div class="reply-wrapper">
+
+          <div class="reply">
+
+            <div class="content">{{ reply['text']|safe }}</div>
+
+            <div class="lower bg-dark">
+              
+              <div class="left">
+                <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=reply.user['username']) }}">{{ reply.user['username'] }}</a></span></p>
+              </div>
+
+              <div class="right">
+                <p>{{ reply['created_on'] }}</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="recomendation">
+
+            <h6>Aanbeveling</h6>
+            {% if reply['phone'] != "" %}
+              <span><a href="{{ url_for('display', phone=reply['phone']) }}"{{ reply['phone'] }}>{{reply['phone']}}</a></span>
+            {% else %}
+              <span>Geen</span>
+            {% endif %}
+
+          </div>
+
+        </div>
+
+      {% if loop.index % 5 == 0 %}
+
+        </div>
+
+        {% set paginationController = (paginationController.append(loop.index),paginationController) %}
+
+        <div class="{{ loop.index }} pagination-wrapper none">
+
+      {% elif loop.last %}
+
+        </div>
+
+      {% endif %}
+
+    {% endfor %}
+
+    {% include 'pagination.html' %}
+
+  </div>
 
 {% endblock %}

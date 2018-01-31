@@ -6,159 +6,174 @@
 
 {% block includes %}
 
+    <!-- Link to stylesheet for the browse page. -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/browse.css') }}">
-
 
 {% endblock %}
 
 {% block main %}
-<div class="row">
-  <div class="col-sm-4">
-    <div class="upper bg-dark">
-      <h5>Filter</h5>
+
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="upper bg-dark">
+        <h5>Filter</h5>
+      </div>
+      <div class="filter">
+
+        <form action="{{ url_for('browse') }}" method="post">
+
+          <h6>Merk</h6>
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="inputSmall">Merk</label>
+            <input class="form-control form-control-sm" name= "brand" type="text" placeholder="Merk" id="inputSmall">
+          </div>
+
+          <h6>Scherm grootte</h6>
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="inputSmall">Minimale grootte</label>
+            <input class="form-control form-control-sm" type="text" name="minSize" placeholder="Minimale grootte in inches">
+          </div>
+
+          <div class="form-group">
+            <label class="col-form-label col-form-label-sm" for="inputSmall">Maximale grootte</label>
+            <input class="form-control form-control-sm" name="maxSize" type="text" placeholder="Maximale grootte in inches">
+          </div>
+
+          <h6>Operating system</h6>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="OS" value="iOS">
+                    iOS
+              </label>
+          </div>
+
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="OS" value="Android">
+                    Android
+              </label>
+          </div>
+
+          <h6>Camera</h6>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="camera" value="Dual">
+                    Dual front camera
+              </label>
+          </div>
+
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="camera" value="normal">
+                    Normale front camera
+              </label>
+          </div>
+
+          <h6>Multitouch</h6>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="multitouch" value="True">
+                    Yes
+              </label>
+          </div>
+
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="multitouch" value="False">
+                    No
+              </label>
+          </div>
+
+          <h6>NFC</h6>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="NFC" value="True">
+                    Yes
+              </label>
+          </div>
+
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="NFC" value="False">
+                    No
+              </label>
+          </div>
+
+          <h6>SIM</h6>
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="SIM" value="Single">
+                    Single SIM
+              </label>
+          </div>
+
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="SIM" value="Dual">
+                    Dual SIM
+              </label>
+          </div>
+
+          <div class="form-check">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="SIM" value="Hybrid">
+                    Hybrid Dual SIM
+              </label>
+          </div>
+
+          <h6>Jaar van aankondiging</h6>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="year" value="2018">
+              2018
+            </label>
+          </div>
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="year" value="2017">
+              2017
+            </label>
+          </div>
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="year" value="2016">
+              2016
+            </label>
+          </div>
+
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="year" value="2015">
+              2015
+            </label>
+          </div>
+
+          <button type="submit" class="btn ab-button">Zoek</button>
+
+        </form>
+      </div>
     </div>
-    <div class="filter">
 
-      <form action="{{ url_for('browse') }}" method="post">
+   <div class="col-sm-8">
 
-      <h6>Merk</h6>
-      <div class="form-group">
-        <label class="col-form-label col-form-label-sm" for="inputSmall">Merk</label>
-        <input class="form-control form-control-sm" name= "brand" type="text" placeholder="Merk" id="inputSmall">
+      <div class="upper bg-dark">
+        <h5>Resultaten</h5>
       </div>
 
-      <h6>Scherm grootte</h6>
-      <div class="form-group">
-        <label class="col-form-label col-form-label-sm" for="inputSmall">Minimale grootte</label>
-        <input class="form-control form-control-sm" type="text" name="minSize" placeholder="Minimale grootte in inches">
+      <div class="results">
+
+        {% for phone in phones %}
+          <div class="phone-wrap">
+            <a class="focus" href="{{ url_for('display', phone=phone['DeviceName']) }}" class="card-link">{{ phone['DeviceName'] }}</a>
+          </div>
+        {% endfor %}
+
       </div>
 
-      <div class="form-group">
-        <label class="col-form-label col-form-label-sm" for="inputSmall">Maximale grootte</label>
-        <input class="form-control form-control-sm" name="maxSize" type="text" placeholder="Maximale grootte in inches">
-      </div>
-
-      <h6>Operating system</h6>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="OS" value="iOS">
-                iOS
-          </label>
-      </div>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="OS" value="Android">
-                Android
-          </label>
-      </div>
-
-      <h6>Camera</h6>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="camera" value="Dual">
-                Dual front camera
-          </label>
-      </div>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="camera" value="normal">
-                Normale front camera
-          </label>
-      </div>
-
-      <h6>Multitouch</h6>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="multitouch" value="True">
-                Yes
-          </label>
-      </div>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="multitouch" value="False">
-                No
-          </label>
-      </div>
-
-      <h6>NFC</h6>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="NFC" value="True">
-                Yes
-          </label>
-      </div>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="NFC" value="False">
-                No
-          </label>
-      </div>
-
-      <h6>SIM</h6>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="SIM" value="Single">
-                Single SIM
-          </label>
-      </div>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="SIM" value="Dual">
-                Dual SIM
-          </label>
-      </div>
-      <div class="form-check">
-          <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="SIM" value="Hybrid">
-                Hybrid Dual SIM
-          </label>
-      </div>
-
-      <h6>Jaar van aankondiging</h6>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" name="year" value="2018">
-          2018
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" name="year" value="2017">
-          2017
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" name="year" value="2016">
-          2016
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
-          <input class="form-check-input" type="radio" name="year" value="2015">
-          2015
-        </label>
-      </div>
-
-      <button type="submit" class="btn ab-button">Zoek</button>
-      </form>
     </div>
+
   </div>
 
- <div class="col-sm-8">
-    <div class="upper bg-dark">
-      <h5>Resultaten</h5>
-    </div>
-  <div class="results">
-    {% for phone in phones %}
-      <div class="phone-wrap">
-
-        <a class="focus" href="{{ url_for('display', phone=phone['DeviceName']) }}" class="card-link">{{ phone['DeviceName'] }}</a>
-
-
-      </div>
-    {% endfor %}
-    </div>
-  </div>
-</div>
 {% endblock %}

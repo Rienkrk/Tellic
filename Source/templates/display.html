@@ -1,126 +1,145 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Phone info
+    {{ phone[0]['DeviceName'] }}
 {% endblock %}
 
 {% block includes %}
 
+    <!-- Link to stylesheet for the display of a phone page. -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/display.css') }}">
 
 {% endblock %}
 
 {% block main %}
 
-<div class="row">
+  <div class="row">
 
-  <div class="col-sm-7">
+    <div class="col-sm-7">
 
-    <table class="table">
-      <tr class="header bg-dark">
-        <th>Telefoon naam:</th>
-        <th>{{ phone[0]['DeviceName'] }}</th>
-      </tr>
-      <tr >
-        <td>Merk:</td>
-        <td>{{ phone[0]['Brand'] }}</td>
-      </tr>
-      <tr >
-        <td>Grootte:</td>
-        <td>{{ phone[0]['size'] }}</td>
-      </tr>
-      <tr>
-        <td>Afmetingen:</td>
-        <td>{{ phone[0]['dimensions'] }}</td>
-      </tr>
-      <tr >
-        <td>Gewicht:</td>
-        <td>{{ phone[0]['weight'] }}</td>
-      </tr>
-      <tr>
-        <td>Sim:</td>
-        <td>{{ phone[0]['sim'] }}</td>
-      </tr>
-      <tr >
-        <td>Resolutie:</td>
-        <td>{{ phone[0]['resolution'] }}</td>
-      </tr>
-      <tr>
-        <td>OS:</td>
-        <td>{{ phone[0]['os'] }}</td>
-      </tr>
-      <tr>
-        <td>Wlan:</td>
-        <td>{{ phone[0]['wlan'] }}</td>
-      </tr>
-      <tr >
-        <td>Gps:</td>
-        <td>{{ phone[0]['gps'] }}</td>
-      </tr>
-      <tr>
-        <td>Radio:</td>
-        <td>{{ phone[0]['radio'] }}</td>
-      </tr>
-      <tr>
-        <td>Chipset</td>
-        <td>{{ phone[0]['chipset'] }}</td>
-      </tr>
-      <tr >
-        <td>Java:</td>
-        <td>{{ phone[0]['java'] }}</td>
-      </tr>
-      <tr>
-        <td>Speciale features:</td>
-        <td>{{ phone[0]['features_c'] }} {{ phone[0]['features'] }}</td>
-      </tr>
-      <tr >
-        <td>Verkrijgbare kleuren:</td>
-        <td>{{ phone[0]['colors'] }}</td>
-      </tr>
-      <tr>
-        <td>Interne geheugen:</td>
-        <td>{{ phone[0]['internal'] }}</td>
-      </tr>
-      <tr >
-        <td>Video:</td>
-        <td>{{ phone[0]['video'] }}</td>
-      </tr>
-      <tr>
-        <td>Connectie:</td>
-        <td>{{ phone[0]['speed'] }}</td>
-      </tr>
-      <tr>
-        <td>Aangekondigd:</td>
-        <td>{{ phone[0]['announced'] }}</td>
-      </tr>
-      <tr>
-        <td>Prijs:</td>
-        <td>{{ phone[0]['price'] }}</td>
-      </tr>
-    </table>
+      <table class="table">
+
+        <tr class="header bg-dark">
+          <th>Telefoon naam:</th>
+          <th>{{ phone[0]['DeviceName'] }}</th>
+        </tr>
+
+        <tr>
+          <td>Merk:</td>
+          <td>{{ phone[0]['Brand'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Grootte:</td>
+          <td>{{ phone[0]['size'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Afmetingen:</td>
+          <td>{{ phone[0]['dimensions'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Gewicht:</td>
+          <td>{{ phone[0]['weight'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Sim:</td>
+          <td>{{ phone[0]['sim'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Resolutie:</td>
+          <td>{{ phone[0]['resolution'] }}</td>
+        </tr>
+
+        <tr>
+          <td>OS:</td>
+          <td>{{ phone[0]['os'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Wlan:</td>
+          <td>{{ phone[0]['wlan'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Gps:</td>
+          <td>{{ phone[0]['gps'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Radio:</td>
+          <td>{{ phone[0]['radio'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Chipset</td>
+          <td>{{ phone[0]['chipset'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Java:</td>
+          <td>{{ phone[0]['java'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Speciale features:</td>
+          <td>{{ phone[0]['features_c'] }} {{ phone[0]['features'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Verkrijgbare kleuren:</td>
+          <td>{{ phone[0]['colors'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Interne geheugen:</td>
+          <td>{{ phone[0]['internal'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Video:</td>
+          <td>{{ phone[0]['video'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Connectie:</td>
+          <td>{{ phone[0]['speed'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Aangekondigd:</td>
+          <td>{{ phone[0]['announced'] }}</td>
+        </tr>
+
+        <tr>
+          <td>Prijs:</td>
+          <td>{{ phone[0]['price'] }}</td>
+        </tr>
+
+      </table>
+
+    </div>
+
+    <div class="col-sm-4">
+
+      <img src="{{ image }}" alt="phone">
+
+      {% if current_user.is_authenticated %}
+
+        <h6>Vindt u dit een mooie telefoon?</h6>
+
+        <form action="{{ url_for('favorite') }}" method="post">
+          <input type="hidden" name="phone" value="{{ phone[0]['DeviceName'] }}"/>
+          <button class="ab-button btn" type="submit">Voeg toe aan favorieten</button>
+        </form>
+
+      {% endif %}
+
+    </div>
 
   </div>
-
-  <div class="col-sm-4">
-
-    <img src="{{ image }}" alt="phone">
-
-    {% if current_user.is_authenticated %}
-
-      <h6>Vindt u dit een mooie telefoon?</h6>
-
-      <form action="{{ url_for('favorite') }}" method="post">
-        <input type="hidden" name="phone" value="{{ phone[0]['DeviceName'] }}"/>
-        <button class="ab-button btn" type="submit">Voeg toe aan favorieten</button>
-      </form>
-
-    {% endif %}
-
-  </div>
-
-</div>
-
-
-
 
 {% endblock %}

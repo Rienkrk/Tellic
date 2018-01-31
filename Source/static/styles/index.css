@@ -65,7 +65,7 @@ main {
 }
 
 .table-active {
-  background: #343a40;
+  background: #343a40 !important;
   color: white;
 }
 

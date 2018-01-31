@@ -6,12 +6,13 @@
 
 {% block includes %}
 
+    <!-- Link to stylesheet for the create post page. -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/createPost.css') }}">
-
 
 {% endblock %}
 
 {% block main %}
+
   <div>
     <form action="{{ url_for('createPost') }}" method="post">
         <h6>Vraag hier uw advies aan de community.</h6>

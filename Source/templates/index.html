@@ -6,87 +6,94 @@
 
 {% block includes %}
 
+    <!-- Link to stylesheet for the index page. -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/index.css') }}">
 
 {% endblock %}
 
 {% block main %}
 
-<div class="row">
+  <div class="row">
 
-  <div class="col-sm-7">
+    <div class="col-sm-7">
 
-    <h6>Laatste posts</h6>
+      <h6>Laatste posts</h6>
 
-    {% set paginationController = ['1'] %}
+      {% set paginationController = ['1'] %}
 
-    <div class="pagination-wrapper 1">
+      <div class="pagination-wrapper 1">
 
-    {% for post in posts %}
-      <div class="post">
-        <div class="upper bg-dark">
-          <div class="left">
-            <a href= "{{ url_for('post', post_id=post['id']) }}"><h5>{{post['title']}}</h5></a>
-            <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a></span></p>
+      {% for post in posts %}
+
+        <div class="post">
+          <div class="upper bg-dark">
+
+            <div class="left">
+              <a href= "{{ url_for('post', post_id=post['id']) }}"><h5>{{post['title']}}</h5></a>
+              <p>Gepost door <span><a class="focus" href="{{ url_for('profiel', username=post.user['username']) }}">{{ post.user['username'] }}</a></span></p>
+            </div>
+
+            <div class="right">
+              <p>{{ post['created_on'] }}</p>
+            </div>
+
           </div>
-          <div class="right">
-            <p>{{ post['created_on'] }}</p>
+
+          <div class="post-content">{{post['text']|safe}}</div>
+
+        </div>
+
+        {% if loop.index % 5 == 0 %}
+
           </div>
-        </div>
-        <div class="post-content">{{post['text']|safe}}</div>
-      </div>
 
-      {% if loop.index % 5 == 0 %}
+          {% set paginationController = (paginationController.append(loop.index),paginationController) %}
 
-        </div>
+          <div class="{{ loop.index }} pagination-wrapper none">
 
-        {% set paginationController = (paginationController.append(loop.index),paginationController) %}
+        {% endif %}
 
-        <div class="{{ loop.index }} pagination-wrapper none">
+        {% if loop.last %}
 
-      {% endif %}
+          </div>
 
-      {% if loop.last %}
+        {% endif %}
 
-        </div>
+      {% endfor %}
 
-      {% endif %}
+      {% include 'pagination.html' %}
 
-    {% endfor %}
+    </div>
 
-    {% include 'pagination.html' %}
+
+    <div class="col-sm-4">
+
+      <h6>Wat is Tellic?</h6>
+      <p class="explenation">Tellic is een telefoon aanbeveling website waar je advies kan krijgen voor de aankoop van een telefoon. Maak simpelweg een post met uw vragen en de community zal u helpen. Daarnaast kunt u via filters telefoons bekijken en deze toevoegen aan uw favorieten. Nog niet uitgeken? Bekijk alle telefoons met specificaties op de telefoon pagina's!</p>
+
+        <h6>Populair</h6>
+
+        <table class="table">
+          <tr class="table-active">
+            <th>Telefoon</th>
+            <th>Score</th>
+            <Th>Link</Th>
+          </tr>
+
+          {% for phone in popular %}
+
+          <tr class="table-secondary">
+            <td>{{ phone[0] }}</td>
+            <td>{{ phone[1] }}</td>
+            <td> <a class="focus" href="{{ url_for('display', phone=phone[0]) }}" class="card-link">Bekijk specificaties</a></td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <p class="note"><span class="focus">*</span> Score is gelijk aan het aantal keer dat de telefoon is toegevoegd aan favorieten.</p>
+
+    </div>
 
   </div>
-
-
-  <div class="col-sm-4">
-
-    <h6>Wat is Tellic?</h6>
-    <p class="explenation">Tellic is een telefoon aanbeveling website waar je advies kan krijgen voor de aankoop van een telefoon. Maak simpelweg een post met uw vragen en de community zal u helpen. Daarnaast kunt u via filters telefoons bekijken en deze toevoegen aan uw favorieten. Nog niet uitgeken? Bekijk alle telefoons met specificaties op de telefoon pagina's!</p>
-
-      <h6>Populair</h6>
-
-      <table class="table">
-        <tr class="table-active">
-          <th>Telefoon</th>
-          <th>Score</th>
-          <Th>Link</Th>
-        </tr>
-
-        {% for phone in popular %}
-
-        <tr class="table-secondary">
-          <td>{{ phone[0] }}</td>
-          <td>{{ phone[1] }}</td>
-          <td> <a class="focus" href="{{ url_for('display', phone=phone[0]) }}" class="card-link">Bekijk specificaties</a></td>
-        </tr>
-        {% endfor %}
-      </table>
-
-      <p class="note"><span class="focus">*</span> Score is gelijk aan het aantal keer dat de telefoon is toegevoegd aan favorieten.</p>
-
-  </div>
-
-</div>
 
 {% endblock %}

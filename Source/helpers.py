@@ -1,3 +1,6 @@
+from app import *
+
+# Filters input with given filters.
 def phone_filter(phones, minSize, maxSize, OS, camera, SIM, multitouch, NFC, year):
 
     # Filter by size.
@@ -41,5 +44,11 @@ def phone_filter(phones, minSize, maxSize, OS, camera, SIM, multitouch, NFC, yea
     if year:
         phones = [phone for phone in phones if phone['announced'][:4] == year]
 
-    # Return result.
+    # Return filtered result.
     return phones
+
+# When a user needs to be autohenticated but is not, return him to login and give him a warning.
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    flash('Om dit te mogen zien moet u ingelogd zijn!', 'alert-warning')
+    return redirect("login")

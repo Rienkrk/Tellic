@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="nl">
   <head>
+    
     <meta charset="utf-8">
     <meta content="initial-scale=1, width=device-width" name="viewport"/>
 
+    <!-- View for error/message/succes flashes. -->
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         <ul class="reset">
@@ -14,29 +16,35 @@
       {% endif %}
     {% endwith %}
 
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/lux/bootstrap.min.css">
     <title>Tellic - {% block title %}{% endblock %}</title>
 
     {% block includes %}{% endblock %}
 
+    <!-- Link to css files for all pages. -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/4.0.0-beta.3/lux/bootstrap.min.css">
 
+    <!-- Link to textbox.io markdown plugin. -->
     <script src="{{ url_for('static',filename='textboxio/textboxio.js') }} "></script>
+
+    <!-- Link to jquery dependency. -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Link to JS files. -->
     <script src="{{ url_for('static',filename='js/search.js') }}"></script>
     <script src="{{ url_for('static',filename='js/pagination.js') }}"></script>
+
+    <!-- Link to bootstrap dedencies. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
   </head>
   <body>
 
     {% include 'navigation.html' %}
 
     <main>
-
       {% block main %}{% endblock %}
-
     </main>
 
   </body>
