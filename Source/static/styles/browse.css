@@ -27,3 +27,31 @@ main {
   justify-content: space-between;
   padding: 20px;
 }
+
+.phone-wrap {
+  background: white;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+h6:first-child {
+  margin-top: 0px !important;
+}
+
+h6 {
+  margin-top: 30px !important;
+}
+
+.filter {
+  background: white;
+  padding: 30px;
+}
+
+button {
+  margin-top: 30px;
+}
+
+.results {
+  height: 879px;
+  overflow-y: scroll;
+}
