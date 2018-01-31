@@ -4,7 +4,7 @@
 <p>IK15</p>
 <p>Tellic is een aanbeveel/zoek platform voor mobiele telefoons.</p>
 <h2> Screenshots</h2>
-![Imgur](https://imgur.com/a/ec42p)
+![Screenshot van applicatie](https://i.imgur.com/otmxWY1.png)
 
 <h2>Features</h2>
 <ul>
@@ -56,6 +56,5 @@
   <li>in het mapje 'static/textboxio' staat de plugin voor het opmaken van textboxen.</li>
   <li>in het mapje 'static/js' staat de .js bestanden.</li>
   <li>in het mapje 'static/styles' staan alle .css bestanden.</li>
-  <li><br /></li>
 </ul>
 <p><br /></p>
