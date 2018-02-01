@@ -5,7 +5,7 @@
 <p>Tellic is een aanbeveel/zoek platform voor mobiele telefoons.</p>
 <br>
 <h2>Features</h2>
-<a href="https://www.youtube.com/watch?v=UzNrrLYzTPI&feature=youtu.be">Link naar product video</a>
+<a href="https://youtu.be/UzNrrLYzTPI">Link naar product video</a>
 <br>
 <h2> Screenshots</h2>
 <img src="https://i.imgur.com/otmxWY1.png" width='800px'/>
