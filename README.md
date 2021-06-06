@@ -43,11 +43,6 @@
   <li>Wachtwoorden worden gesalt en gehasht</li>
 </ul>
 
-<h2> Verdeling van werk </h2>
-<p> Nigel heeft zich met name bezig gehouden met de display pagina, het valideren van alle gebruikersinput</p>
-<p> Rienk heeft zich in eerste instantie gericht op de initialisatie van de applicatie. De eerste layout, registreren, de API werkend maken etc. Later richtte hij zich vooral op de zoekfunctie en de styling van de website.</p>
-<p> Stijn heeft zich vooral bezig gehouden met de pagina om een post te maken, de filterpagina en de indexpagina. </p>
-
 <h2>Wegwijs door de repository</h2>
 <ul>
   <li>In het mapje 'Source' is alle code te vinden.</li>
